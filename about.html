@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Story — Barkley Pet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=IM+Fell+French+Canon:ital@0;1&family=Hind+Vadodara:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-hero {
+      height: 38vh; min-height: 300px; max-height: 500px;
+      background: var(--brown-deep); display: flex; align-items: flex-end;
+      position: relative; overflow: hidden; margin-top: var(--nav-h);
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1600&q=80');
+      background-size: cover; background-position: center 35%;
+      opacity: 0.28; filter: sepia(15%);
+    }
+    .page-hero-vignette {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,13,7,0.95) 0%, rgba(26,13,7,0.3) 65%, transparent 100%);
+    }
+    .page-hero-content {
+      position: relative; z-index: 2;
+      max-width: var(--max-w); margin: 0 auto; padding: 0 40px 52px; width: 100%;
+    }
+    .page-hero-content h1 {
+      font-family: var(--serif-body); font-style: normal;
+      font-size: clamp(2rem, 4vw, 3.4rem); color: var(--cream); font-weight: 500;
+    }
+
+    /* ── Intro split ── */
+    .about-intro {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+    }
+    .about-intro__img {
+      position: relative; overflow: hidden;
+    }
+    .about-intro__img img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.85) sepia(10%);
+      transition: transform 0.8s var(--ease-out);
+    }
+    .about-intro:hover .about-intro__img img { transform: scale(1.03); }
+    .about-intro__frame {
+      position: absolute; inset: 22px;
+      border: 1px solid rgba(247,217,84,0.2);
+      pointer-events: none;
+      transition: inset 0.5s var(--ease-out), border-color 0.4s;
+    }
+    .about-intro:hover .about-intro__frame { inset: 10px; border-color: rgba(247,217,84,0.38); }
+    .about-intro__text {
+      background: var(--brown); padding: 80px 70px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .about-intro__text h2 { color: var(--cream); margin-bottom: 0; }
+    .about-intro__text p { color: var(--text-on-dark); font-size: 0.94rem; margin-bottom: 18px; }
+
+    /* ── Mission strip ── */
+    .mission-strip {
+      background: var(--brown-dark); padding: 100px 40px; text-align: center;
+    }
+    .mission-strip h2 { color: var(--cream); max-width: 680px; margin: 0 auto 20px; }
+    .mission-strip p { color: var(--text-on-dark); max-width: 560px; margin: 0 auto; font-size: 1rem; line-height: 1.8; }
+
+    /* ── Values grid ── */
+    .values { padding: 110px 0; background: var(--cream-dark); }
+    .values-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px;
+    }
+    .value-card {
+      background: var(--cream); padding: 44px 36px;
+      border-top: 2px solid transparent;
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s, border-color 0.3s;
+    }
+    .value-card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(82,52,38,0.1); border-top-color: var(--gold); }
+    .value-card__num {
+      font-family: var(--serif-display); font-style: italic;
+      font-size: 3.5rem; color: rgba(82,52,38,0.1);
+      line-height: 1; margin-bottom: 14px;
+      transition: color 0.3s;
+    }
+    .value-card:hover .value-card__num { color: rgba(201,168,60,0.2); }
+    .value-card h3 { font-family: var(--serif-body); font-size: 1.25rem; color: var(--brown); margin-bottom: 12px; }
+    .value-card p { font-size: 0.88rem; color: #7a6055; line-height: 1.7; }
+
+    /* ── Materials split ── */
+    .materials { display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
+    .materials__img { position: relative; overflow: hidden; }
+    .materials__img img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.82) sepia(12%);
+      transition: transform 0.7s var(--ease-out);
+    }
+    .materials:hover .materials__img img { transform: scale(1.04); }
+    .materials__text {
+      background: var(--brown-deep); padding: 80px 70px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .materials__text h2 { color: var(--cream); margin-bottom: 0; }
+    .materials__text p { color: var(--text-on-dark); font-size: 0.94rem; margin-bottom: 18px; }
+    .materials__list { list-style: none; margin: 20px 0 32px; }
+    .materials__list li {
+      font-family: var(--sans); font-size: 0.84rem; color: rgba(244,237,224,0.65);
+      padding: 10px 0; border-bottom: 1px solid rgba(247,217,84,0.1);
+      display: flex; align-items: center; gap: 12px;
+      transition: color 0.25s;
+    }
+    .materials__list li:hover { color: var(--cream); }
+    .materials__list li::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gold-dim); flex-shrink: 0;
+    }
+
+    @media (max-width: 960px) {
+      .about-intro, .materials { grid-template-columns: 1fr; }
+      .about-intro__img, .materials__img { height: 360px; }
+      .about-intro__text, .materials__text { padding: 60px 40px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .about-intro__text, .materials__text { padding: 48px 24px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .mission-strip { padding: 70px 24px; }
+      .page-hero-content { padding: 0 22px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" data-hover>
+        <img src="img/BarkleyLogo3.png" alt="Barkley Pet" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Shop</a></li>
+        <li><a href="about.html" class="active">Our Story</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="products.html" class="nav-cta" data-hover><span>Shop Now</span></a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-drawer" id="drawer">
+    <button class="drawer-close" id="drawerClose">&#x2715;</button>
+    <img src="img/BarkleyLogo3.png" alt="Barkley Pet" class="drawer-logo" />
+    <nav class="drawer-nav">
+      <a href="index.html">Home</a><a href="products.html">Shop</a>
+      <a href="about.html">Our Story</a><a href="contact.html">Contact</a>
+    </nav>
+    <a href="products.html" class="btn-gold" style="margin-top:40px;"><span>Shop Now</span></a>
+  </div>
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-vignette"></div>
+    <div class="page-hero-content">
+      <p class="eyebrow">Our Heritage</p>
+      <h1>The Barkley Story</h1>
+    </div>
+  </div>
+
+  <!-- INTRO SPLIT -->
+  <section class="about-intro">
+    <div class="about-intro__img" data-reveal="left">
+      <img src="https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?w=900&q=80" alt="Barkley Pet leather craftsmanship" loading="lazy" />
+      <div class="about-intro__frame"></div>
+    </div>
+    <div class="about-intro__text" data-reveal="right">
+      <p class="eyebrow">How It Started</p>
+      <h2>Born From a Love for Dogs</h2>
+      <div class="gold-rule gold-rule--left" style="margin: 22px 0;"></div>
+      <p>Barkley Pet was created out of a simple frustration &mdash; leather dog collars all started to look the same. Same shapes, same finishes, same designs, over and over again. We wanted to change that.</p>
+      <p>Born from a love for dogs and an appreciation for well-crafted design, Barkley Pet exists to bring something different to the market. We set out to create premium leather dog accessories that feel considered, modern, and distinctive, without sacrificing comfort or durability.</p>
+      <p>At Barkley Pet, we believe dogs are more than just pets &mdash; they&rsquo;re family.</p>
+      <a href="products.html" class="btn-outline" style="margin-top: 28px; display: inline-block;" data-hover>
+        <span>Shop the Collection</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission-strip">
+    <div data-reveal>
+      <p class="eyebrow">Our Mission</p>
+      <h2>Raising the Standard for Dog Accessories</h2>
+      <div class="gold-rule"></div>
+      <p>As an Australian brand, we&rsquo;re committed to creating products that meet high expectations for quality and durability. We focus on thoughtful design, responsible sourcing, and practical functionality &mdash; so you can invest in accessories that age beautifully and perform reliably over time.</p>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <div class="section-wrap">
+      <div class="section-header" data-reveal>
+        <p class="eyebrow">What We Stand For</p>
+        <h2 style="color: var(--brown-dark);">The Barkley Difference</h2>
+        <div class="gold-rule" style="background: var(--gold-dark);"></div>
+      </div>
+      <div class="values-grid">
+        <div class="value-card" data-reveal data-delay="0">
+          <div class="value-card__num">01</div>
+          <h3>Considered Design</h3>
+          <p>Barkley Pet isn&rsquo;t about following trends &mdash; it&rsquo;s about raising the standard. Every product is designed for dog owners who want something different.</p>
+        </div>
+        <div class="value-card" data-reveal data-delay="100">
+          <div class="value-card__num">02</div>
+          <h3>Comfort First</h3>
+          <p>Comfort, fit, and safety are at the core of everything we design. Our products move naturally with your dog while maintaining a premium, timeless look.</p>
+        </div>
+        <div class="value-card" data-reveal data-delay="200">
+          <div class="value-card__num">03</div>
+          <h3>Built to Last</h3>
+          <p>We specialise in high-quality leather dog accessories designed for everyday use. Products that age beautifully and perform reliably over time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATERIALS -->
+  <section class="materials">
+    <div class="materials__text" data-reveal="left">
+      <p class="eyebrow">What We Use</p>
+      <h2>Premium Materials, No Compromise</h2>
+      <div class="gold-rule gold-rule--left" style="margin: 22px 0;"></div>
+      <p>We focus on responsible sourcing and practical functionality. Every material is chosen because it performs &mdash; and because it looks better with age.</p>
+      <ul class="materials__list">
+        <li>Full-grain vegetable-tanned leather</li>
+        <li>Solid brass buckles and hardware</li>
+        <li>Hand-finished and burnished edges</li>
+        <li>Heavy-duty stitching throughout</li>
+        <li>Adjustable fits across all sizes</li>
+      </ul>
+      <a href="products.html" class="btn-gold" data-hover><span>Shop Now</span></a>
+    </div>
+    <div class="materials__img" data-reveal="right">
+      <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=900&q=80" alt="Premium leather materials" loading="lazy" />
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="final-cta-inner" data-reveal>
+      <p class="eyebrow" style="color: var(--gold);">Designed for Dogs. Loved by Owners.</p>
+      <h2>Explore the Collection<br><em>Built for Every Walk</em></h2>
+      <div class="gold-rule"></div>
+      <p style="color: var(--text-on-dark);">Collars, harnesses and leashes for dogs who deserve the best.</p>
+      <div class="cta-btns">
+        <a href="products.html" class="btn-gold" data-hover><span>Shop All Products</span></a>
+        <a href="contact.html" class="btn-ghost" data-hover><span>Get in Touch</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="img/BarkleyLogo3.png" alt="Barkley Pet" class="footer-logo" />
+        <p>Premium leather dog accessories handcrafted for dogs and owners who value quality and craft.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram" data-hover>IG</a>
+          <a href="#" aria-label="Facebook" data-hover>FB</a>
+          <a href="#" aria-label="TikTok" data-hover>TK</a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Shop</h4><ul>
+        <li><a href="products.html">All Products</a></li>
+        <li><a href="index.html#bundles">Bundles</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Support</h4><ul>
+        <li><a href="contact.html">Shipping Info</a></li>
+        <li><a href="contact.html">Returns</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Barkley Pet Pty Ltd &middot; Melbourne, Australia &middot; ABN 31 687 348 198</p>
+      <p><a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+    (function loop(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+    document.querySelectorAll('[data-hover],a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hovered'));el.addEventListener('mouseleave',()=>ring.classList.remove('hovered'));});
+    if('ontouchstart' in window){dot.style.display=ring.style.display='none';document.body.style.cursor='auto';}
+    const navbar=document.getElementById('navbar');
+    window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>60),{passive:true});
+    const hbg=document.getElementById('hamburger'),drw=document.getElementById('drawer'),ovl=document.getElementById('drawerOverlay'),cls=document.getElementById('drawerClose');
+    const open=()=>{drw.classList.add('open');ovl.classList.add('open');hbg.classList.add('open');document.body.style.overflow='hidden';};
+    const close=()=>{drw.classList.remove('open');ovl.classList.remove('open');hbg.classList.remove('open');document.body.style.overflow='';};
+    hbg.addEventListener('click',open);cls.addEventListener('click',close);ovl.addEventListener('click',close);
+    const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const d=Number(e.target.dataset.delay||0);setTimeout(()=>e.target.classList.add('revealed'),d);obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('[data-reveal]').forEach(el=>obs.observe(el));
+    const rObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('wide');rObs.unobserve(e.target);}});},{threshold:0.5});
+    document.querySelectorAll('.gold-rule').forEach(r=>rObs.observe(r));
+  </script>
+</body>
+</html>

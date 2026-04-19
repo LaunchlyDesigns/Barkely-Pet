@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed — Barkley Pet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Hind+Vadodara:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #f7d954; --gold-dim: #c9a83c;
+      --brown: #6b3d28; --brown-dark: #3a1f0e; --brown-deep: #220f05;
+      --cream: #f4ede0;
+      --serif-body: 'Frank Ruhl Libre', Georgia, serif;
+      --sans: 'Hind Vadodara', sans-serif;
+      --ease-out: cubic-bezier(0.22,1,0.36,1);
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:var(--sans); background:var(--brown-deep); color:var(--cream); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 24px; }
+
+    .success-box {
+      max-width:520px; width:100%; text-align:center;
+      border:1px solid rgba(247,217,84,.2);
+      padding:64px 48px;
+      background:rgba(255,255,255,.03);
+      animation:fadeUp .8s var(--ease-out) both;
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+
+    .success-icon {
+      width:72px; height:72px; border-radius:50%;
+      background:rgba(247,217,84,.12); border:1.5px solid rgba(247,217,84,.3);
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 32px; font-size:1.8rem;
+      animation:pop .6s var(--ease-out) .4s both;
+    }
+    @keyframes pop { from { transform:scale(.6); opacity:0; } to { transform:scale(1); opacity:1; } }
+
+    .eyebrow { font-size:.65rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:var(--gold-dim); display:block; margin-bottom:14px; }
+    h1 { font-family:var(--serif-body); font-size:clamp(1.8rem,4vw,2.6rem); font-weight:500; margin-bottom:18px; color:var(--cream); }
+    p  { font-size:.9rem; color:rgba(244,237,224,.65); line-height:1.75; margin-bottom:10px; }
+
+    .divider { width:60px; height:1px; background:rgba(247,217,84,.2); margin:32px auto; }
+
+    .btn-back {
+      display:inline-block; margin-top:16px;
+      font-family:var(--sans); font-size:.68rem; font-weight:600;
+      letter-spacing:.18em; text-transform:uppercase;
+      padding:13px 32px; background:var(--gold); color:var(--brown-dark);
+      position:relative; overflow:hidden;
+      transition:transform .25s var(--ease-out), box-shadow .25s, color .3s;
+    }
+    .btn-back::before { content:''; position:absolute; inset:0; background:var(--brown-dark); transform:translateX(-101%); transition:transform .35s var(--ease-out); }
+    .btn-back:hover::before { transform:translateX(0); }
+    .btn-back:hover { color:var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(247,217,84,.2); }
+    .btn-back span { position:relative; z-index:1; }
+  </style>
+</head>
+<body>
+  <div class="success-box">
+    <div class="success-icon">✓</div>
+    <span class="eyebrow">Order Confirmed</span>
+    <h1>Thank you for your order</h1>
+    <p>Your payment was successful. You'll receive a confirmation email from Stripe shortly with your order details.</p>
+    <p>We handcraft each piece in small batches — your order will be prepared with care and dispatched within 3–5 business days.</p>
+    <div class="divider"></div>
+    <a href="products.html" class="btn-back"><span>Continue Shopping →</span></a>
+  </div>
+</body>
+</html>
