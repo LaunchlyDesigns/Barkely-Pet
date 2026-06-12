@@ -51,8 +51,8 @@ window.PRICES = {
   'collar-004': { S: 30, M: 32, L: 33, XL: 34},
   'collar-005': { S: 32, M: 33, L: 34, XL: 36},
   'collar-006': { S: 26, M: 28, L: 30, XL: 32},
-  'collar-007': { S: 25, M: 25, L: 25, XL: 25},
-  'collar-008': { S: 25, M: 25, L: 25, XL: 25},
+  'collar-007': { S: 30, M: 30, L: 30, XL: 30},
+  'collar-008': { S: 30, M: 30, L: 30, XL: 30},
 
   // BUNDLES
   'bundle-001': { M: 110, L: 110, XL: 110 },
