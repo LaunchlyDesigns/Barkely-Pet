@@ -477,7 +477,6 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav class="navbar scrolled" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
@@ -507,7 +506,6 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
   </div>
   <div class="drawer-overlay" id="drawerOverlay"></div>
 
-  <!-- PAGE HERO -->
   <div class="page-hero">
     <div class="page-hero-bg"></div>
     <div class="page-hero-vignette"></div>
@@ -517,7 +515,6 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
       <h1>Shop All Products</h1>
     </div>
   </div>
-<!-- MARQUEE -->
 <div class="marquee-bar">
   <div class="marquee-track" id="marqueeTrack">
     <div class="marquee-item"><span>Premium Materials</span><div class="marquee-dot"></div></div>
@@ -528,7 +525,6 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
     <div class="marquee-item"><span>Designed in Australia</span><div class="marquee-dot"></div></div>
     <div class="marquee-item"><span>Refined Over Time</span><div class="marquee-dot"></div></div>
 
-    <!-- repeat for smooth loop -->
     <div class="marquee-item"><span>Premium Materials</span><div class="marquee-dot"></div></div>
     <div class="marquee-item"><span>Carefully Crafted Design</span><div class="marquee-dot"></div></div>
     <div class="marquee-item"><span>Secure Checkout Available</span><div class="marquee-dot"></div></div>
@@ -539,7 +535,6 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
   </div>
 </div>
 
-  <!-- SECTION NAV -->
   <div class="section-nav">
     <div class="section-nav-inner">
       <a href="#section-harness" class="section-nav-btn">Harnesses</a>
@@ -549,19 +544,18 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
     </div>
   </div>
 
-  <!-- SORT BAR -->
   <div class="sort-bar">
     <select class="sort-select" id="sortSelect" aria-label="Sort products">
       <option value="default">Default Order</option>
       <option value="az">Name A–Z</option>
       <option value="za">Name Z–A</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
     </select>
   </div>
 
-  <!-- PRODUCTS — SECTIONED -->
   <section class="products-section">
     <div class="section-wrap" id="shopContent">
-      <!-- skeleton shown on load -->
       <div class="cat-section">
         <div class="skeleton-grid">
           <div class="skeleton-card"></div><div class="skeleton-card"></div>
@@ -572,7 +566,6 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
@@ -606,7 +599,7 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
 
   <script>
   /* ════════════════════════════════════════════
-     STRIPE PAYMENT LINKS
+      STRIPE PAYMENT LINKS
   ════════════════════════════════════════════ */
   const STRIPE_LINKS = {
     'harness-001': '',
@@ -633,7 +626,7 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
   };
 
   /* ════════════════════════════════════════════
-     GOOGLE SHEETS API
+      GOOGLE SHEETS API
   ════════════════════════════════════════════ */
   const API_URL = 'https://script.google.com/macros/s/AKfycbyc7iXa2GEa1q-ScMsnjD-b2BUAfCynqPYLZf0Qy4QNw5YQnJG0qmi-DhvfMXRLs3eaig/exec';
 
@@ -644,7 +637,7 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
   const PLACEHOLDER = 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=70';
 
   /* ════════════════════════════════════════════
-     CATEGORIES CONFIG — controls section order + labels
+      CATEGORIES CONFIG — controls section order + labels
   ════════════════════════════════════════════ */
   const CATEGORIES = [
     { key: 'harness', label: 'Harnesses' },
@@ -654,7 +647,7 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
   ];
 
   /* ════════════════════════════════════════════
-     STATE
+      STATE
   ════════════════════════════════════════════ */
   let allProducts = [];
   let activeSort  = 'default';
@@ -783,7 +776,7 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
   load();
 
   /* ════════════════════════════════════════════
-     SHARED UI
+      SHARED UI
   ════════════════════════════════════════════ */
 
   /* Section nav active state on scroll */

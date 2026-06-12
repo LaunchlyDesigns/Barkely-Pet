@@ -11,7 +11,6 @@
     href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=IM+Fell+French+Canon:ital@0;1&family=Hind+Vadodara:wght@300;400;500;600&display=swap"
     rel="stylesheet" />
 
-  <!-- ✅ All product data: names, sizes, prices, descriptions, price IDs, photo counts -->
   <script src="item_data.js"></script>
 
   <style>
@@ -128,7 +127,8 @@
     .product-price small { font-family: var(--sans); font-size: .7rem; color: #a08070; font-weight: 300; }
     .product-price.tba { font-family: var(--serif-display); font-style: italic; font-size: 1rem; color: #b0a090; }
     .product-desc { font-size: .88rem; color: #6b5040; line-height: 1.8; margin-bottom: 24px; }
-    .product-sizes-label { font-family: var(--sans); font-size: .62rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--brown); margin-bottom: 10px; display: block; }
+    .product-sizes-label-wrap { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+    .product-sizes-label { font-family: var(--sans); font-size: .62rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--brown); display: block; }
     .product-sizes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
     .size-btn { font-family: var(--sans); font-size: .65rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 9px 18px; border: 1px solid rgba(107,61,40,.22); color: var(--brown); background: transparent; transition: border-color .25s, background .25s, color .25s; cursor: pointer; position: relative; }
     .size-btn:hover { border-color: var(--brown); background: rgba(107,61,40,.05); }
@@ -159,6 +159,19 @@
     .accordion-body-inner ul { padding-left: 0; }
     .accordion-body-inner li { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0; border-bottom: 1px solid rgba(107,61,40,.07); font-size: .83rem; }
     .accordion-body-inner li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--gold-dim); flex-shrink: 0; margin-top: 8px; }
+
+    /* BUNDLE / INDIVIDUAL RELATED STRIP */
+    .related-strip { margin-top: 28px; margin-bottom: 4px; padding: 20px 22px; background: var(--cream-warm); border: 1px solid rgba(201,168,60,.22); }
+    .related-strip__label { font-family: var(--sans); font-size: .58rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 14px; display: block; }
+    .related-strip__cards { display: flex; flex-wrap: wrap; gap: 12px; }
+    .related-strip__card { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid rgba(107,61,40,.1); padding: 10px 14px; cursor: pointer; flex: 1; min-width: 200px; transition: border-color .25s, box-shadow .25s, transform .25s var(--ease-out); text-decoration: none; color: inherit; }
+    .related-strip__card:hover { border-color: var(--gold-dim); box-shadow: 0 6px 20px rgba(58,31,14,.09); transform: translateY(-2px); }
+    .related-strip__card-img { width: 52px; height: 52px; object-fit: cover; flex-shrink: 0; background: var(--cream-dark); }
+    .related-strip__card-body { flex: 1; min-width: 0; }
+    .related-strip__card-cat { font-family: var(--sans); font-size: .52rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-dark); display: block; margin-bottom: 2px; }
+    .related-strip__card-name { font-family: var(--serif-body); font-size: .88rem; color: var(--brown-dark); line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .related-strip__card-price { font-family: var(--serif-body); font-size: .92rem; color: var(--brown-dark); white-space: nowrap; }
+    .related-strip__card-arrow { font-size: .75rem; color: var(--gold-dark); flex-shrink: 0; margin-left: 4px; }
 
     /* RELATED */
     .related { background: var(--cream-dark); padding: 80px 0; border-top: 1px solid rgba(107,61,40,.1); }
@@ -195,6 +208,21 @@
     .checkout-modal__close { position: absolute; top: 16px; right: 20px; color: var(--text-muted); font-size: 1rem; background: none; border: none; cursor: pointer; transition: color .2s; }
     .checkout-modal__close:hover { color: var(--cream); }
 
+    /* SIZE GUIDE MODAL POPUP */
+    .size-modal { position: fixed; inset: 0; z-index: 2100; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease-out); }
+    .size-modal.open { opacity: 1; pointer-events: all; }
+    .size-modal-overlay { position: absolute; inset: 0; background: rgba(34, 15, 5, 0.7); backdrop-filter: blur(4px); }
+    .size-modal-container { position: relative; z-index: 2101; background: var(--cream); border: 1px solid rgba(107, 61, 40, 0.2); width: min(550px, 90%); max-height: 85vh; overflow-y: auto; padding: 40px 30px; box-shadow: 0 30px 90px rgba(0, 0, 0, 0.3); transform: translateY(20px); transition: transform 0.3s var(--ease-out); }
+    .size-modal.open .size-modal-container { transform: translateY(0); }
+    .size-modal-close { position: absolute; top: 15px; right: 20px; font-size: 1.4rem; color: var(--brown); cursor: pointer; opacity: 0.6; }
+    .size-modal h2 { font-family: var(--serif-body); color: var(--brown-dark); margin-bottom: 24px; font-size: 1.6rem; border-bottom: 1px solid rgba(107, 61, 40, 0.15); padding-bottom: 10px; }
+    .size-table-title { font-family: var(--sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); margin: 20px 0 8px; }
+    .size-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-family: var(--sans); font-size: 0.85rem; }
+    .size-table th, .size-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid rgba(107, 61, 40, 0.08); }
+    .size-table th { background: var(--cream-dark); color: var(--brown-dark); font-weight: 600; }
+    .size-text-info { font-family: var(--sans); font-size: 0.9rem; color: var(--brown); background: var(--cream-warm); padding: 12px 16px; border-left: 3px solid var(--gold); }
+    #viewSizeGuide { font-family: var(--sans); font-size: 0.65rem; color: var(--gold-dark); letter-spacing: 0.05em; text-transform: uppercase; text-decoration: underline; cursor: pointer; display: none; }
+
     /* NOT FOUND */
     .not-found { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 40px; }
     .not-found h2 { font-family: var(--serif-body); font-size: 1.8rem; color: var(--brown); margin-bottom: 12px; }
@@ -213,7 +241,7 @@
     .footer-col ul a:hover { color: var(--cream); padding-left: 14px; }
     .footer-col ul a:hover::before { opacity: 1; left: 0; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,.05); padding: 24px 40px; max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-    .footer-bottom p, .footer-bottom a { font-size: .72rem; color: rgba(244,237,224,.2); }
+    .footer-bottom p, .footer-bottom a { font-size: .72rem; color: rgba(244, 237, 224, .2); }
     .footer-bottom a:hover { color: var(--gold-dim); }
 
     /* RESPONSIVE */
@@ -236,13 +264,13 @@
       .footer-inner { grid-template-columns: 1fr; padding: 0 22px 50px; }
       .footer-bottom { padding: 22px; }
       .checkout-modal { padding: 36px 24px; }
+      .related-strip__card { min-width: 100%; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- CHECKOUT OVERLAY -->
   <div class="checkout-overlay" id="checkoutOverlay">
     <div class="checkout-modal">
       <button class="checkout-modal__close" id="checkoutClose">&#x2715;</button>
@@ -253,7 +281,6 @@
     </div>
   </div>
 
-  <!-- NAVBAR -->
   <nav class="navbar scrolled" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" data-hover>
@@ -283,7 +310,6 @@
   </div>
   <div class="drawer-overlay" id="drawerOverlay"></div>
 
-  <!-- BREADCRUMB -->
   <div class="breadcrumb">
     <a href="index.html">Home</a>
     <span class="breadcrumb__sep">›</span>
@@ -294,7 +320,15 @@
 
   <div id="pageContent"></div>
 
-  <!-- FOOTER -->
+  <div class="size-modal" id="sizeModal">
+    <div class="size-modal-overlay" id="sizeModalOverlay"></div>
+    <div class="size-modal-container">
+      <button class="size-modal-close" id="sizeModalClose">&#x2715;</button>
+      <h2>Sizing Guide</h2>
+      <div id="sizeModalContent"></div>
+    </div>
+  </div>
+
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
@@ -337,10 +371,10 @@
 
   <script>
     /* ════════════════════════════════════════════
-       CONFIG
-       Backend URL only — everything else comes
-       from item_data.js via window.*
-    ════════════════════════════════════════════ */
+        CONFIG
+        Backend URL only — everything else comes
+        from item_data.js via window.*
+     ════════════════════════════════════════════ */
     const CONFIG = {
       BACKEND_URL: 'https://script.google.com/macros/s/AKfycbzGoLOLPBhfDMArjE4vfIidbmVWpI1Tzp6nUTl6Y5LIFobn3ai0PqIo4GGyeJ_suwqYbw/exec',
       PRICE_IDS:   window.PRICE_IDS || {},
@@ -350,106 +384,139 @@
     const PRICES       = window.PRICES       || {};
     const DESCRIPTIONS = window.DESCRIPTIONS || {};
     const PHOTO_COUNTS = window.PHOTO_COUNTS || {};
+    const RELATED_MAP  = window.RELATED      || {};
     const PLACEHOLDER  = 'img/Products/harness-001/1.jpeg';
 
     /* ════════════════════════════════════════════
-       FALLBACK — built entirely from item_data.js
-    ════════════════════════════════════════════ */
+        SIZE GUIDE CONTENT REFERENCE
+     ════════════════════════════════════════════ */
+    const SIZE_GUIDES = {
+      collar: `
+        <div class="size-table-title">Dog Collar Size Guide</div>
+        <table class="size-table">
+          <thead>
+            <tr><th>Size</th><th>Collar Length</th><th>Collar Width</th><th>Best For</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Small (S)</td><td>50 cm</td><td>1 inch</td><td>Small breeds</td></tr>
+            <tr><td>Medium (M)</td><td>55 cm</td><td>1.5 inch</td><td>Medium breeds</td></tr>
+            <tr><td>Large (L)</td><td>60 cm</td><td>1.5 inch</td><td>Large breeds</td></tr>
+            <tr><td>Extra Large (XL)</td><td>65 cm</td><td>2 inch</td><td>Extra-large breeds</td></tr>
+          </tbody>
+        </table>`,
+      harness: `
+        <div class="size-table-title">Harness Size Guide</div>
+        <table class="size-table">
+          <thead>
+            <tr><th>Size</th><th>Chest Girth</th><th>Neck Girth</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>S</td><td>65-80 cm</td><td>35-50 cm</td></tr>
+            <tr><td>M</td><td>75-95 cm</td><td>45-60 cm</td></tr>
+            <tr><td>L</td><td>90-110 cm</td><td>55-70 cm</td></tr>
+            <tr><td>XL</td><td>110-130+ cm</td><td>65-85 cm</td></tr>
+          </tbody>
+        </table>`,
+      leash: `
+        <div class="size-table-title">Leash Dimensions</div>
+        <div class="size-text-info">Our standard leash length is <strong>1.5 meters</strong>.</div>`
+    };
+
+    /* ════════════════════════════════════════════
+        FALLBACK — built entirely from item_data.js
+     ════════════════════════════════════════════ */
     const FALLBACK = (window.FALLBACK || []).map(p => ({
       ...p,
       description: DESCRIPTIONS[p.id] || 'Strong durable leather. Handcrafted in small batches.',
     }));
 
     /* ════════════════════════════════════════════
-       CATEGORY DETAILS (accordion content)
-    ════════════════════════════════════════════ */
-const CATEGORY_DETAILS = {
-  harness: {
-    materials: [
-      'Durable leather construction',
-      'Strong metal hardware components',
-      'Soft interior lining for comfort',
-      'Reinforced stitching throughout'
-    ],
-    care: [
-      'Wipe clean with a damp cloth after use',
-      'Condition leather areas occasionally if applicable',
-      'Allow to air dry naturally',
-      'Store in a cool, dry place away from direct heat'
-    ],
-    shipping: [
-      'Standard shipping across Australia',
-      'Delivery times vary depending on location',
-    ],
-  },
-
-  leash: {
-    materials: [
-      'Leather and/or fabric construction depending on style',
-      'Strong metal hardware clip and fittings',
-      'Reinforced stitching for daily use',
-      'Designed for comfort and control'
-    ],
-    care: [
-      'Wipe clean after use',
-      'Allow to air dry if exposed to moisture',
-      'Avoid tight coiling for long periods',
-      'Store in a dry place'
-    ],
-    shipping: [
-      'Standard shipping across Australia',
-      'Delivery times vary depending on location',
-    ],
-  },
-
-  collar: {
-    materials: [
-      'Durable leather construction',
-      'Strong metal buckle and fittings',
-      'Reinforced stitching',
-      'Designed for everyday wear'
-    ],
-    care: [
-      'Wipe clean after walks',
-      'Condition leather areas occasionally if applicable',
-      'Avoid direct heat when drying',
-      'Store in a cool, dry place'
-    ],
-    shipping: [
-      'Standard shipping across Australia',
-      'Delivery times vary depending on location',
-    ],
-  },
-
-  bundle: {
-    materials: [
-      'Durable leather construction',
-      'Strong metal hardware components',
-      'Reinforced stitching throughout',
-      'Packaged as a coordinated set'
-    ],
-    care: [
-      'Follow care instructions for each individual item',
-      'Wipe clean when needed',
-      'Avoid prolonged moisture exposure',
-      'Store neatly when not in use'
-    ],
-    shipping: [
-      'Standard shipping across Australia',
-      'Delivery times vary depending on location',
-    ],
-  },
-};
+        CATEGORY DETAILS (accordion content)
+     ════════════════════════════════════════════ */
+    const CATEGORY_DETAILS = {
+      harness: {
+        materials: [
+          'Durable leather construction',
+          'Strong metal hardware components',
+          'Soft interior lining for comfort',
+          'Reinforced stitching throughout'
+        ],
+        care: [
+          'Wipe clean with a damp cloth after use',
+          'Condition leather areas occasionally if applicable',
+          'Allow to air dry naturally',
+          'Store in a cool, dry place away from direct heat'
+        ],
+        shipping: [
+          'Standard shipping across Australia',
+          'Delivery times vary depending on location',
+        ],
+      },
+      leash: {
+        materials: [
+          'Leather and/or fabric construction depending on style',
+          'Strong metal hardware clip and fittings',
+          'Reinforced stitching for daily use',
+          'Designed for comfort and control'
+        ],
+        care: [
+          'Wipe clean after use',
+          'Allow to air dry if exposed to moisture',
+          'Avoid tight coiling for long periods',
+          'Store in a dry place'
+        ],
+        shipping: [
+          'Standard shipping across Australia',
+          'Delivery times vary depending on location',
+        ],
+      },
+      collar: {
+        materials: [
+          'Durable leather construction',
+          'Strong metal buckle and fittings',
+          'Reinforced stitching',
+          'Designed for everyday wear'
+        ],
+        care: [
+          'Wipe clean after walks',
+          'Condition leather areas occasionally if applicable',
+          'Avoid direct heat when drying',
+          'Store in a cool, dry place'
+        ],
+        shipping: [
+          'Standard shipping across Australia',
+          'Delivery times vary depending on location',
+        ],
+      },
+      bundle: {
+        materials: [
+          'Durable leather construction',
+          'Strong metal hardware components',
+          'Reinforced stitching throughout',
+          'Packaged as a coordinated set'
+        ],
+        care: [
+          'Follow care instructions for each individual item',
+          'Wipe clean when needed',
+          'Avoid prolonged moisture exposure',
+          'Store neatly when not in use'
+        ],
+        shipping: [
+          'Standard shipping across Australia',
+          'Delivery times vary depending on location',
+        ],
+      },
+    };
 
     /* ════════════════════════════════════════════
-       STATE
-    ════════════════════════════════════════════ */
+        STATE
+     ════════════════════════════════════════════ */
     let allProducts = [];
     let selectedSize = null;
 
     /* ════════════════════════════════════════════
-       HELPERS
-    ════════════════════════════════════════════ */
+        HELPERS
+     ════════════════════════════════════════════ */
     function getCat(id) {
       if (String(id).startsWith('harness')) return 'Harness';
       if (String(id).startsWith('collar'))  return 'Collar';
@@ -476,8 +543,78 @@ const CATEGORY_DETAILS = {
     }
 
     /* ════════════════════════════════════════════
-       SIZE SELECTION
-    ════════════════════════════════════════════ */
+        RELATED STRIP HELPERS
+     ════════════════════════════════════════════ */
+    function getFirstPrice(id) {
+      const priceData = PRICES[id];
+      if (!priceData) return null;
+      if (typeof priceData === 'object') return Object.values(priceData)[0] || null;
+      return priceData || null;
+    }
+
+    /* Build the "Get it in a Bundle" strip for individual items */
+    function buildBundleStrip(relatedIds) {
+      const items = relatedIds
+        .map(rid => FALLBACK.find(p => p.id === rid))
+        .filter(Boolean);
+      if (!items.length) return '';
+
+      const cards = items.map(rp => {
+        const img   = `img/Products/${rp.id}/1.jpeg`;
+        const price = getFirstPrice(rp.id);
+        const priceStr = price ? `$${parseFloat(price).toFixed(2)}` : 'See price';
+        return `
+          <a class="related-strip__card" href="product.html?id=${rp.id}">
+            <img class="related-strip__card-img" src="${img}" alt="${rp.name}" onerror="this.src='${PLACEHOLDER}'" />
+            <div class="related-strip__card-body">
+              <span class="related-strip__card-cat">Bundle</span>
+              <div class="related-strip__card-name">${rp.name}</div>
+            </div>
+            <span class="related-strip__card-price">${priceStr}</span>
+            <span class="related-strip__card-arrow">→</span>
+          </a>`;
+      }).join('');
+
+      return `
+        <div class="related-strip">
+          <span class="related-strip__label">Also available as a bundle</span>
+          <div class="related-strip__cards">${cards}</div>
+        </div>`;
+    }
+
+    /* Build the "Buy Individual Parts" strip for bundles */
+    function buildPartsStrip(relatedIds) {
+      const items = relatedIds
+        .map(rid => FALLBACK.find(p => p.id === rid))
+        .filter(Boolean);
+      if (!items.length) return '';
+
+      const cards = items.map(rp => {
+        const img   = `img/Products/${rp.id}/1.jpeg`;
+        const price = getFirstPrice(rp.id);
+        const priceStr = price ? `from $${parseFloat(price).toFixed(2)}` : 'See price';
+        return `
+          <a class="related-strip__card" href="product.html?id=${rp.id}">
+            <div class="related-strip__card-body">
+              <span class="related-strip__card-cat">${getCat(rp.id)}</span>
+              <div class="related-strip__card-name"></div>
+              <div class="related-strip__card-name"> </div>
+            </div>
+            <span class="related-strip__card-price">${priceStr}</span>
+            <span class="related-strip__card-arrow">→</span>
+          </a>`;
+      }).join('');
+
+      return `
+        <div class="related-strip">
+          <span class="related-strip__label">Buy the individual pieces</span>
+          <div class="related-strip__cards">${cards}</div>
+        </div>`;
+    }
+
+    /* ════════════════════════════════════════════
+        SIZE SELECTION
+     ════════════════════════════════════════════ */
     function selectSize(btnOrNull) {
       let btn, size;
       if (typeof btnOrNull === 'string') {
@@ -526,8 +663,8 @@ const CATEGORY_DETAILS = {
     }
 
     /* ════════════════════════════════════════════
-       RENDER PRODUCT
-    ════════════════════════════════════════════ */
+        RENDER PRODUCT
+     ════════════════════════════════════════════ */
     function renderProduct(p) {
       const id     = p.id || '';
       const cat    = getCat(id);
@@ -597,7 +734,10 @@ const CATEGORY_DETAILS = {
       if (sizesArr.length && isSizeBased) {
         const firstSize = sizesArr[0];
         sizeBtnsHtml = `
-          <span class="product-sizes-label">Select Size</span>
+          <div class="product-sizes-label-wrap">
+            <span class="product-sizes-label">Select Size</span>
+            <a id="viewSizeGuide">View Size Guide</a>
+          </div>
           <div class="product-sizes">
             ${sizesArr.map(s => {
               const pid     = priceMap[s];
@@ -614,7 +754,10 @@ const CATEGORY_DETAILS = {
           <p class="size-soon-note" id="sizeSoonNote">This size is coming soon — check back shortly.</p>`;
       } else if (sizesArr.length) {
         sizeBtnsHtml = `
-          <span class="product-sizes-label">Available Sizes</span>
+          <div class="product-sizes-label-wrap">
+            <span class="product-sizes-label">Available Sizes</span>
+            <a id="viewSizeGuide">View Size Guide</a>
+          </div>
           <div class="product-sizes">
             ${sizesArr.map((s, i) => `<button
               class="size-btn${i === 0 ? ' active' : ''}"
@@ -635,7 +778,14 @@ const CATEGORY_DETAILS = {
       const careHtml      = details.care.map(c => `<li>${c}</li>`).join('');
       const shippingHtml  = details.shipping.map(s => `<li>${s}</li>`).join('');
 
-      /* Related products */
+      /* ── RELATED STRIP (window.RELATED) ── */
+      const relatedIds  = RELATED_MAP[id] || [];
+      const isBundle    = catKey === 'bundle';
+      const relatedStripHtml = relatedIds.length
+        ? (isBundle ? buildPartsStrip(relatedIds) : buildBundleStrip(relatedIds))
+        : '';
+
+      /* Related products section (same category) */
       const related = allProducts.filter(rp => getCatKey(rp.id) === catKey && rp.id !== id).slice(0, 3);
       const relatedHtml = related.length ? `
         <section class="related">
@@ -692,6 +842,7 @@ const CATEGORY_DETAILS = {
             <p class="product-desc">${p.description || 'Premium leather. Handcrafted in small batches.'}</p>
             ${sizeBtnsHtml}
             <div class="product-buy">${buyHtml}</div>
+            ${relatedStripHtml}
 
             <div class="product-trust">
               <div class="trust-pill">
@@ -745,6 +896,9 @@ const CATEGORY_DETAILS = {
       document.title = `${p.name} — Barkley Pet`;
       document.getElementById('breadcrumbName').textContent = p.name;
 
+      // Initialize Dynamic Size Guide content inside injected DOM
+      renderSizeGuidePopupContent(id);
+
       // Re-attach cursor hovers after DOM injection
       document.querySelectorAll('[data-hover],a,button').forEach(el => {
         el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
@@ -763,8 +917,8 @@ const CATEGORY_DETAILS = {
     }
 
     /* ════════════════════════════════════════════
-       IMAGE SWITCHING
-    ════════════════════════════════════════════ */
+        IMAGE SWITCHING
+     ════════════════════════════════════════════ */
     function switchImg(src, thumbEl) {
       const mainImg = document.getElementById('mainImg');
       if (!mainImg) return;
@@ -775,15 +929,15 @@ const CATEGORY_DETAILS = {
     }
 
     /* ════════════════════════════════════════════
-       ACCORDION
-    ════════════════════════════════════════════ */
+        ACCORDION
+     ════════════════════════════════════════════ */
     function toggleAccordion(trigger) {
       trigger.closest('.accordion-item').classList.toggle('open');
     }
 
     /* ════════════════════════════════════════════
-       STRIPE CHECKOUT
-    ════════════════════════════════════════════ */
+        STRIPE CHECKOUT
+     ════════════════════════════════════════════ */
     const overlay = document.getElementById('checkoutOverlay');
 
     async function startCheckout(btn) {
@@ -826,88 +980,88 @@ const CATEGORY_DETAILS = {
     document.getElementById('checkoutClose').addEventListener('click', () => overlay.classList.remove('open', 'loading'));
     overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open', 'loading'); });
 
-
     async function loadSheetsData() {
-  try {
-    const res = await fetch(`${SHEETS_API}?action=getProducts`);
-    const data = await res.json();
-    return (data.products && data.products.length)
-      ? data.products
-      : FALLBACK;
-  } catch {
-    return FALLBACK;
-  }
-}
-    /* ════════════════════════════════════════════
-       INIT
-    ════════════════════════════════════════════ */
-async function init() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
-  if (!id) { renderNotFound(); return; }
-
-  // 1. INSTANT RENDER (no waiting for Sheets)
-  allProducts = FALLBACK;
-
-  const product = allProducts.find(p => p.id === id);
-  if (!product) { renderNotFound(); return; }
-
-  renderProduct(product);
-
-  // 2. LOAD SHEETS IN BACKGROUND (non-blocking)
-  loadSheetsData().then(products => {
-    allProducts = products;
-
-    const updatedProduct = allProducts.find(p => p.id === id);
-    if (!updatedProduct) return;
-
-    // optional: only update description if needed
-    const descEl = document.querySelector('.product-desc');
-    if (descEl && updatedProduct.description) {
-      descEl.textContent = updatedProduct.description;
-    }
-
-    console.log("Sheets loaded in background");
-  });
-
-  // 3. Auto-select size (same logic as before)
-  const priceMap = CONFIG.PRICE_IDS[id];
-  if (priceMap && typeof priceMap === 'object') {
-    const sizesArr = product.sizes
-      ? product.sizes.split('/').map(s => s.trim())
-      : [];
-
-    const firstAvailable =
-      sizesArr.find(s => priceMap[s]) || sizesArr[0];
-
-    if (firstAvailable) {
-      selectedSize = firstAvailable;
-
-      const buyBtn = document.getElementById('buyBtn');
-      if (buyBtn) {
-        const pid = priceMap[firstAvailable] || '';
-        buyBtn.dataset.priceId = pid;
-        buyBtn.disabled = !pid;
-        buyBtn.querySelector('span').textContent =
-          pid ? 'Buy Now — Secure Checkout' : 'Coming Soon';
+      try {
+        const res = await fetch(`${SHEETS_API}?action=getProducts`);
+        const data = await res.json();
+        return (data.products && data.products.length)
+          ? data.products
+          : FALLBACK;
+      } catch {
+        return FALLBACK;
       }
     }
-  }
-}
+
+    /* ════════════════════════════════════════════
+        INIT
+     ════════════════════════════════════════════ */
+    async function init() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (!id) { renderNotFound(); return; }
+
+      // 1. INSTANT RENDER (no waiting for Sheets)
+      allProducts = FALLBACK;
+
+      const product = allProducts.find(p => p.id === id);
+      if (!product) { renderNotFound(); return; }
+
+      renderProduct(product);
+
+      // 2. LOAD SHEETS IN BACKGROUND (non-blocking)
+      loadSheetsData().then(products => {
+        allProducts = products;
+
+        const updatedProduct = allProducts.find(p => p.id === id);
+        if (!updatedProduct) return;
+
+        // optional: only update description if needed
+        const descEl = document.querySelector('.product-desc');
+        if (descEl && updatedProduct.description) {
+          descEl.textContent = updatedProduct.description;
+        }
+
+        console.log("Sheets loaded in background");
+      });
+
+      // 3. Auto-select size (same logic as before)
+      const priceMap = CONFIG.PRICE_IDS[id];
+      if (priceMap && typeof priceMap === 'object') {
+        const sizesArr = product.sizes
+          ? product.sizes.split('/').map(s => s.trim())
+          : [];
+
+        const firstAvailable =
+          sizesArr.find(s => priceMap[s]) || sizesArr[0];
+
+        if (firstAvailable) {
+          selectedSize = firstAvailable;
+
+          const buyBtn = document.getElementById('buyBtn');
+          if (buyBtn) {
+            const pid = priceMap[firstAvailable] || '';
+            buyBtn.dataset.priceId = pid;
+            buyBtn.disabled = !pid;
+            buyBtn.querySelector('span').textContent =
+              pid ? 'Buy Now — Secure Checkout' : 'Coming Soon';
+          }
+        }
+      }
+    }
 
     init();
 
     /* ════════════════════════════════════════════
-       NAVBAR SCROLL
-    ════════════════════════════════════════════ */
+        NAVBAR SCROLL
+     ════════════════════════════════════════════ */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
 
     /* ════════════════════════════════════════════
-       MOBILE DRAWER
-    ════════════════════════════════════════════ */
+        MOBILE DRAWER
+     ════════════════════════════════════════════ */
     const hbg = document.getElementById('hamburger');
     const drw = document.getElementById('drawer');
     const ovl = document.getElementById('drawerOverlay');
@@ -917,6 +1071,60 @@ async function init() {
     hbg.addEventListener('click', openD);
     cls.addEventListener('click', closeD);
     ovl.addEventListener('click', closeD);
+
+    /* ════════════════════════════════════════════
+        SIZE GUIDE ENGINE & MODAL EVENT BINDINGS
+     ════════════════════════════════════════════ */
+    function renderSizeGuidePopupContent(id) {
+      const contentBox = document.getElementById('sizeModalContent');
+      const linkTrigger = document.getElementById('viewSizeGuide');
+      if (!contentBox || !linkTrigger) return;
+
+      let htmlTemplate = '';
+      const lookupKey = id.toLowerCase();
+
+      if (lookupKey.startsWith('harness')) {
+        htmlTemplate = SIZE_GUIDES.harness;
+      } else if (lookupKey.startsWith('collar')) {
+        htmlTemplate = SIZE_GUIDES.collar;
+      } else if (lookupKey.startsWith('leash')) {
+        htmlTemplate = SIZE_GUIDES.leash;
+      } else if (lookupKey.startsWith('bundle')) {
+        htmlTemplate = `
+          <p style="font-family:var(--sans); font-size:0.82rem; color:#6b5040; margin-bottom:15px; line-height:1.6;">
+            This custom selection includes multiple accessories. Please review sizing boundaries for each specific item below:
+          </p>
+          ${SIZE_GUIDES.harness}
+          ${SIZE_GUIDES.collar}
+          ${SIZE_GUIDES.leash}`;
+      }
+
+      if (htmlTemplate) {
+        contentBox.innerHTML = htmlTemplate;
+        linkTrigger.style.display = 'inline-block';
+      }
+    }
+
+    const sizeModal = document.getElementById('sizeModal'),
+          sizeClose = document.getElementById('sizeModalClose'),
+          sizeOverlay = document.getElementById('sizeModalOverlay');
+
+    // Event routing delegated to document body to watch dynamically rendered template nodes
+    document.body.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'viewSizeGuide') {
+        e.preventDefault();
+        sizeModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    const hideSizeModal = () => {
+      sizeModal.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    if (sizeClose) sizeClose.addEventListener('click', hideSizeModal);
+    if (sizeOverlay) sizeOverlay.addEventListener('click', hideSizeModal);
   </script>
 </body>
 </html>
