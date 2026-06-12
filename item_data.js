@@ -37,11 +37,11 @@ window.PRICES = {
   'harness-005': { M: 45, L: 46, XL: 47 },
 
   // LEASH
-  'leash-001': { Regular: 15 },
-  'leash-002': { Regular: 15 },
-  'leash-003': { Regular: 15 },
-  'leash-004': { Regular: 15 },
-  'leash-005': { Regular: 15 },
+  'leash-001': { Regular: 18 },
+  'leash-002': { Regular: 18 },
+  'leash-003': { Regular: 18 },
+  'leash-004': { Regular: 18 },
+  'leash-005': { Regular: 18 },
 
   // COLLARS
   'collar-001': { M: 40, L: 42, XL: 43 },
@@ -70,10 +70,10 @@ window.PRICE_IDS = {
   'harness-005': { M: 'price_1TXBarK98HEjIejTGNnyUxOQ', L: 'price_1TXBbKK98HEjIejTsctCWe5K', XL: 'price_1TXBckK98HEjIejTaTExurbm' },
 
   'leash-001': { Regular: 'price_1ThAb0K98HEjIejTRBa35Avo'},
-  'leash-002': { Regular: 'price_1ThActK98HEjIejTt0dODJma'},
+  'leash-002': { Regular: 'price_1ThNueK98HEjIejTLddAEJ7g'},
   'leash-003': { Regular: 'price_1ThAeYK98HEjIejTBBT9BJX7'},
   'leash-004': { Regular: 'price_1ThAewK98HEjIejT2Sln9XgK'},
-  'leash-005': { Regular: 'price_1ThAfbK98HEjIejT4mo3HNEv'},
+  'leash-005': { Regular: 'price_1ThNvDK98HEjIejTQTMxglSc'},
 
 
   'collar-001': { M: 'price_1TXBEeK98HEjIejTMfxYUNYJ', L: 'price_1TXBF6K98HEjIejTJdXXGOHE', XL: 'price_1TXBGPK98HEjIejTYEvrikGU' },
