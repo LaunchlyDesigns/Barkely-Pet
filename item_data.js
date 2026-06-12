@@ -100,11 +100,11 @@ window.DESCRIPTIONS = {
   'harness-004': 'A heavy-duty style harness with a rugged finish, strong metal hardware, and durable construction.',
   'harness-005': 'A clean, tailored harness design with smooth leather-style finish, metal hardware, and adjustable straps.',
 
-  'leash-001': 'A black leather-style leash with metal studs.',
-  'leash-002': 'A green leather-style leash with metal studs.',
-  'leash-003': 'A brown leather-style leash with metal stud detailing.',
-  'leash-004': 'A classic-style leash made leather with stylish blue and red woven fabric accents. Comfortable grip with a secure metal clip.',
-  'leash-005': 'A classic-style leash made leather with stylish pink and red woven fabric accents. Comfortable grip with a secure metal clip.',
+  'leash-001': 'A 1.5m long black leather-style leash with metal studs.',
+  'leash-002': 'A 1.5m long green leather-style leash with metal studs.',
+  'leash-003': 'A 1.5m long brown leather-style leash with metal stud detailing.',
+  'leash-004': 'A 1.5m long classic-style leash made leather with stylish blue and red woven fabric accents. Comfortable grip with a secure metal clip.',
+  'leash-005': 'A 1.5m long classic-style leash made leather with stylish pink and red woven fabric accents. Comfortable grip with a secure metal clip.',
 
   'collar-001': 'A detailed collar with engraved-style patterning, metal buckle, and durable leather-style finish.',
   'collar-002': 'A simple everyday collar with metal roller buckle and a clean, durable design built for regular use.',
