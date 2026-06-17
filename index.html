@@ -26,6 +26,7 @@
   --max-w: 1200px;
   --nav-h: 78px;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --sale-red: #c0392b;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -99,7 +100,7 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
 .drawer-overlay { position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:940; opacity:0; pointer-events:none; transition:opacity .4s; }
 .drawer-overlay.open { opacity:1; pointer-events:all; }
 
-/* HERO with parallax */
+/* HERO */
 .hero { height: auto; min-height: 94vh; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; position: relative; background: var(--brown-deep); }
 .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 140px 72px 100px; position: relative; z-index: 2; }
 .hero-left::before { content:''; position:absolute; inset:0; background-color: var(--brown-mid); background-image: linear-gradient(180deg,rgba(255,210,100,.09) 0%,transparent 35%), linear-gradient(180deg,transparent 60%,rgba(0,0,0,.18) 100%), repeating-linear-gradient(38deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px,transparent 4px,transparent 8px), repeating-linear-gradient(-38deg,transparent,transparent 3px,rgba(0,0,0,.055) 3px,rgba(0,0,0,.055) 4px,transparent 4px,transparent 8px), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.22 0 0 0 0 0.12 0 0 0 0 0.06 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 100% 100%,100% 100%,8px 8px,8px 8px,300px 300px; pointer-events:none; }
@@ -142,258 +143,42 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
 .trust-card:hover .trust-card__icon { width: 48px; background: var(--gold); }
 .trust-card__desc { font-family: var(--sans); font-size: .84rem; font-weight: 300; color: rgba(244,237,224,.5); line-height: 1.65; }
 
-/* ═══════════════════════════════════════════
-   SCROLL FEATURE — contained in a card/box
-   ═══════════════════════════════════════════ */
-.scroll-feature-wrap {
-  padding: 80px 40px;
-  background: var(--cream-dark);
-  border-top: 1px solid rgba(82,52,38,.08);
-  border-bottom: 1px solid rgba(82,52,38,.08);
-}
-
-/* The outer container that becomes sticky */
-.scroll-feature {
-  position: relative;
-  /* 3 slides × 90vh each — enough room to scroll through */
-  height: 270vh;
-  max-width: var(--max-w);
-  margin: 0 auto;
-}
-
-/* The card that sticks */
-.scroll-feature-sticky {
-  position: sticky;
-  top: calc(var(--nav-h) + 24px);
-  /* Contained card look */
-  background: var(--cream);
-  border: 1px solid rgba(82,52,38,.12);
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 12px 48px rgba(82,52,38,.1), 0 2px 8px rgba(82,52,38,.06);
-  /* No full-screen height — feels like a card, not a trap */
-  min-height: 520px;
-  display: flex;
-  align-items: stretch;
-}
-
-.sf-inner {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  width: 100%;
-  gap: 0;
-}
-
-/* Left text panel */
-.sf-text-panel {
-  padding: 56px 56px 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-
-/* Step indicators — vertical on left edge */
-.sf-step-dots {
-  position: absolute;
-  right: 28px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
-.sf-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(82,52,38,.18);
-  transition: background .4s, transform .4s var(--ease-out), height .4s var(--ease-out);
-  border-radius: 3px;
-}
-.sf-dot.active {
-  background: var(--gold-dark);
-  height: 22px;
-  transform: scaleX(1);
-}
-.sf-dot.done {
-  background: rgba(82,52,38,.35);
-}
-
-/* Horizontal progress bar at top of text panel */
-.sf-top-progress {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: rgba(82,52,38,.06);
-  overflow: hidden;
-}
-.sf-top-progress-fill {
-  height: 100%;
-  background: var(--gold-dim);
-  width: 0%;
-  transition: width .08s linear;
-}
-
-/* Slide text */
-.sf-texts {
-  position: relative;
-  min-height: 240px;
-}
-.sf-slide {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity .45s var(--ease-out), transform .5s var(--ease-out);
-  pointer-events: none;
-}
-.sf-slide.active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-.sf-eyebrow {
-  font-family: var(--sans); font-size: .62rem; font-weight: 600;
-  letter-spacing: .28em; text-transform: uppercase;
-  color: var(--gold-dark); margin-bottom: 14px; display: block;
-}
-.sf-title {
-  font-family: var(--serif-body); font-weight: 500;
-  font-size: clamp(1.5rem,2.4vw,2.1rem);
-  color: var(--brown-dark); line-height: 1.2; margin-bottom: 18px;
-}
-.sf-desc {
-  font-family: var(--sans); font-weight: 300; font-size: .93rem;
-  color: #6b5040; line-height: 1.8; max-width: 400px;
-}
-
-/* Slide counter */
-.sf-counter {
-  margin-top: 32px;
-  font-family: var(--serif-display);
-  font-style: italic;
-  font-size: 1.1rem;
-  color: rgba(82,52,38,.25);
-  letter-spacing: .05em;
-}
-.sf-counter strong {
-  color: var(--brown-mid);
-  font-style: normal;
-  font-family: var(--serif-body);
-}
-
-/* Right image panel */
-.sf-image-panel {
-  position: relative;
-  overflow: hidden;
-  border-left: 1px solid rgba(82,52,38,.1);
-}
-
-.sf-img {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity .55s var(--ease-out);
-}
+/* SCROLL FEATURE */
+.scroll-feature-wrap { padding: 80px 40px; background: var(--cream-dark); border-top: 1px solid rgba(82,52,38,.08); border-bottom: 1px solid rgba(82,52,38,.08); }
+.scroll-feature { position: relative; height: 270vh; max-width: var(--max-w); margin: 0 auto; }
+.scroll-feature-sticky { position: sticky; top: calc(var(--nav-h) + 24px); background: var(--cream); border: 1px solid rgba(82,52,38,.12); border-radius: 4px; overflow: hidden; box-shadow: 0 12px 48px rgba(82,52,38,.1), 0 2px 8px rgba(82,52,38,.06); min-height: 520px; display: flex; align-items: stretch; }
+.sf-inner { display: grid; grid-template-columns: 1fr 360px; width: 100%; gap: 0; }
+.sf-text-panel { padding: 56px 56px 48px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+.sf-step-dots { position: absolute; right: 28px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.sf-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(82,52,38,.18); transition: background .4s, transform .4s var(--ease-out), height .4s var(--ease-out); border-radius: 3px; }
+.sf-dot.active { background: var(--gold-dark); height: 22px; transform: scaleX(1); }
+.sf-dot.done { background: rgba(82,52,38,.35); }
+.sf-top-progress { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: rgba(82,52,38,.06); overflow: hidden; }
+.sf-top-progress-fill { height: 100%; background: var(--gold-dim); width: 0%; transition: width .08s linear; }
+.sf-texts { position: relative; min-height: 240px; }
+.sf-slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; opacity: 0; transform: translateY(14px); transition: opacity .45s var(--ease-out), transform .5s var(--ease-out); pointer-events: none; }
+.sf-slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.sf-eyebrow { font-family: var(--sans); font-size: .62rem; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 14px; display: block; }
+.sf-title { font-family: var(--serif-body); font-weight: 500; font-size: clamp(1.5rem,2.4vw,2.1rem); color: var(--brown-dark); line-height: 1.2; margin-bottom: 18px; }
+.sf-desc { font-family: var(--sans); font-weight: 300; font-size: .93rem; color: #6b5040; line-height: 1.8; max-width: 400px; }
+.sf-counter { margin-top: 32px; font-family: var(--serif-display); font-style: italic; font-size: 1.1rem; color: rgba(82,52,38,.25); letter-spacing: .05em; }
+.sf-counter strong { color: var(--brown-mid); font-style: normal; font-family: var(--serif-body); }
+.sf-image-panel { position: relative; overflow: hidden; border-left: 1px solid rgba(82,52,38,.1); }
+.sf-img { position: absolute; inset: 0; opacity: 0; transition: opacity .55s var(--ease-out); }
 .sf-img.active { opacity: 1; }
-.sf-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  filter: brightness(.88) sepia(8%) saturate(.95);
-  transform: scale(1.04);
-  transition: transform .55s var(--ease-out);
-}
+.sf-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.88) sepia(8%) saturate(.95); transform: scale(1.04); transition: transform .55s var(--ease-out); }
 .sf-img.active img { transform: scale(1); }
-
-/* Gold accent line bottom of image */
-.sf-image-panel::after {
-  content:''; position:absolute; bottom:0; left:0; right:0;
-  height:3px; background: var(--gold-dim); z-index:2;
-}
-
-/* Scroll hint badge — fades out once you've scrolled */
-.sf-scroll-hint {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--sans);
-  font-size: .6rem;
-  font-weight: 600;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(82,52,38,.4);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: opacity .4s;
-  z-index: 5;
-  pointer-events: none;
-  white-space: nowrap;
-}
-.sf-scroll-hint::before {
-  content: '';
-  display: block;
-  width: 1px;
-  height: 18px;
-  background: rgba(82,52,38,.25);
-  animation: bounceDown .9s ease-in-out infinite;
-}
-@keyframes bounceDown {
-  0%,100% { transform: translateY(-3px); }
-  50% { transform: translateY(3px); }
-}
+.sf-image-panel::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background: var(--gold-dim); z-index:2; }
+.sf-scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: rgba(82,52,38,.4); display: flex; align-items: center; gap: 8px; transition: opacity .4s; z-index: 5; pointer-events: none; white-space: nowrap; }
+.sf-scroll-hint::before { content: ''; display: block; width: 1px; height: 18px; background: rgba(82,52,38,.25); animation: bounceDown .9s ease-in-out infinite; }
+@keyframes bounceDown { 0%,100% { transform: translateY(-3px); } 50% { transform: translateY(3px); } }
 .sf-scroll-hint.hidden { opacity: 0; }
-
-/* Floating side indicator — appears when inside scroll section */
-.sf-side-indicator {
-  position: fixed;
-  right: 28px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 800;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .5s var(--ease-out);
-}
+.sf-side-indicator { position: fixed; right: 28px; top: 50%; transform: translateY(-50%); z-index: 800; display: flex; flex-direction: column; gap: 8px; align-items: center; opacity: 0; pointer-events: none; transition: opacity .5s var(--ease-out); }
 .sf-side-indicator.visible { opacity: 1; pointer-events: auto; }
-.sf-side-pip {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: rgba(82,52,38,.2);
-  transition: background .4s, transform .4s var(--ease-out), height .4s;
-  border-radius: 2px;
-}
-.sf-side-pip.active {
-  background: var(--gold-dark);
-  height: 18px;
-}
+.sf-side-pip { width: 4px; height: 4px; border-radius: 50%; background: rgba(82,52,38,.2); transition: background .4s, transform .4s var(--ease-out), height .4s; border-radius: 2px; }
+.sf-side-pip.active { background: var(--gold-dark); height: 18px; }
 .sf-side-pip.done { background: rgba(82,52,38,.4); }
-
-/* Slide label on indicator */
-.sf-side-label {
-  font-family: var(--sans);
-  font-size: .55rem;
-  font-weight: 600;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--brown);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  opacity: 0.5;
-  margin-top: 6px;
-  transition: opacity .3s;
-}
+.sf-side-label { font-family: var(--sans); font-size: .55rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--brown); writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.5; margin-top: 6px; transition: opacity .3s; }
 
 /* SHARED */
 .section-wrap { max-width:var(--max-w); margin:0 auto; padding:0 40px; }
@@ -431,8 +216,12 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
 .bundle-includes li::before { content:''; width:4px; height:4px; border-radius:50%; background:var(--gold-dim); flex-shrink:0; transition:background .25s; }
 .bundle-includes li:hover::before { background:var(--gold); }
 .bundle-footer { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:6px; }
-.bundle-price { font-family:var(--serif-body); font-size:1.75rem; color:var(--cream); line-height:1; }
-.bundle-price small { font-family:var(--sans); font-size:.7rem; color:var(--text-muted); font-weight:300; margin-left:4px; }
+
+/* Bundle sale price block */
+.bundle-price-wrap { display: flex; flex-direction: column; gap: 3px; line-height: 1; }
+.bundle-price-was { font-family: var(--sans); font-size: .72rem; color: rgba(244,237,224,.35); text-decoration: line-through; letter-spacing: .03em; }
+.bundle-price { font-family:var(--serif-body); font-size:1.75rem; color: #e05a4a; line-height:1; }
+.bundle-price small { font-family:var(--sans); font-size:.7rem; color:rgba(244,237,224,.35); font-weight:300; margin-left:4px; }
 
 /* STORY SPLIT */
 .story-split { display:grid; grid-template-columns:1fr 1fr; min-height:580px; }
@@ -497,17 +286,7 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
 [data-reveal="scale"] { transform:scale(.94); }
 [data-reveal].revealed { opacity:1; transform:none; }
 
-/* PARALLAX elements */
 [data-parallax] { will-change: transform; }
-
-/* STAT STRIP */
-.stat-strip { background: var(--brown-mid); border-top: 1px solid rgba(247,217,84,.12); border-bottom: 1px solid rgba(247,217,84,.12); }
-.stat-grid { display:grid; grid-template-columns:repeat(4,1fr); }
-.stat-card { padding: 52px 36px; text-align: center; border-right: 1px solid rgba(247,217,84,.1); position: relative; overflow: hidden; transition: background .35s; }
-.stat-card:last-child { border-right:none; }
-.stat-card:hover { background: rgba(247,217,84,.04); }
-.stat-num { font-family: var(--serif-display); font-style: italic; font-size: clamp(2.8rem,4vw,3.8rem); color: var(--gold); line-height: 1; display: block; margin-bottom: 8px; }
-.stat-label { font-family: var(--sans); font-size: .68rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: rgba(244,237,224,.45); }
 
 /* KEYFRAMES */
 @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
@@ -532,9 +311,6 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
   .hero-scroll { display:none; }
   .trust-grid { grid-template-columns:repeat(2,1fr); }
   .trust-card { border-bottom:1px solid rgba(247,217,84,.1); padding:32px 24px; }
-  .stat-grid { grid-template-columns:repeat(2,1fr); }
-  .stat-card { border-bottom:1px solid rgba(247,217,84,.1); }
-  /* Scroll feature stacked on mobile */
   .scroll-feature-wrap { padding: 40px 20px; }
   .scroll-feature { height: auto; }
   .scroll-feature-sticky { position: relative; top: auto; min-height: auto; flex-direction: column; }
@@ -562,21 +338,18 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
   .footer-bottom { padding:22px; }
   .cta-btns { flex-direction:column; align-items:center; }
   .final-cta { padding:90px 22px; }
-  .stat-grid { grid-template-columns:1fr; }
   .trust-grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- Floating side indicator for scroll section -->
 <div class="sf-side-indicator" id="sfSideIndicator">
   <div class="sf-side-pip active" id="sfPip0"></div>
   <div class="sf-side-pip" id="sfPip1"></div>
   <div class="sf-side-pip" id="sfPip2"></div>
 </div>
 
-<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo" data-hover>
@@ -608,7 +381,6 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
 </div>
 <div class="drawer-overlay" id="drawerOverlay"></div>
 
-<!-- HERO -->
 <section class="hero" id="heroSection">
   <div class="hero-left">
     <p class="hero-eyebrow" data-parallax data-speed="0.3">Est. 2024 &mdash; Melbourne, Australia</p>
@@ -631,251 +403,172 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
   </div>
 </section>
 
-<!-- MARQUEE -->
 <div class="marquee-bar">
   <div class="marquee-track" id="marqueeTrack">
-    <div class="marquee-item"><span>Premium Materials</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Carefully Crafted Design</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Thoughtful Packaging</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Built for Everyday Use</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Designed in Australia</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Refined Over Time</span><div class="marquee-dot"></div></div>
-
-    <!-- repeat for smooth loop -->
-    <div class="marquee-item"><span>Premium Materials</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Carefully Crafted Design</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Thoughtful Packaging</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Built for Everyday Use</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Designed in Australia</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Refined Over Time</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Storewide Sale</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>30% Off Everything</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Limited Time Only</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Storewide Sale</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>30% Off Everything</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Limited Time Only</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Storewide Sale</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>30% Off Everything</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Limited Time Only</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Storewide Sale</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>30% Off Everything</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Limited Time Only</span><div class="marquee-dot"></div></div>
   </div>
 </div>
 
-<!-- TRUST BAR -->
 <div class="trust-bar">
   <div class="trust-grid">
-
     <div class="trust-card" data-reveal data-delay="0">
       <div class="trust-card__icon"></div>
       <h3 class="trust-card__title">Quality Materials</h3>
-      <p class="trust-card__desc">
-        Carefully selected materials chosen for durability, comfort, and everyday use.
-      </p>
+      <p class="trust-card__desc">Carefully selected materials chosen for durability, comfort, and everyday use.</p>
     </div>
-
     <div class="trust-card" data-reveal data-delay="80">
       <div class="trust-card__icon"></div>
       <h3 class="trust-card__title">Durable Hardware</h3>
-      <p class="trust-card__desc">
-        Strong metal fittings designed for secure, reliable performance on daily walks.
-      </p>
+      <p class="trust-card__desc">Strong metal fittings designed for secure, reliable performance on daily walks.</p>
     </div>
-
     <div class="trust-card" data-reveal data-delay="160">
       <div class="trust-card__icon"></div>
       <h3 class="trust-card__title">Thoughtful Packaging</h3>
-      <p class="trust-card__desc">
-        Each order is packed with care for a clean and considered unboxing experience.
-      </p>
+      <p class="trust-card__desc">Each order is packed with care for a clean and considered unboxing experience.</p>
     </div>
-
     <div class="trust-card" data-reveal data-delay="240">
       <div class="trust-card__icon"></div>
       <h3 class="trust-card__title">Australia Shipping</h3>
-      <p class="trust-card__desc">
-        Fast, reliable shipping across Australia with options shown at checkout.
-      </p>
+      <p class="trust-card__desc">Fast, reliable shipping across Australia with options shown at checkout.</p>
     </div>
-
   </div>
 </div>
 
-<!-- SCROLL FEATURE — contained card -->
 <div class="scroll-feature-wrap">
-  <!-- Section header above the card -->
-  
-
   <div class="scroll-feature" id="scrollFeature">
     <div class="scroll-feature-sticky" id="scrollSticky">
       <div class="sf-inner">
-
-        
-        <!-- Left: text panel -->
         <div class="sf-text-panel">
           <div class="sf-top-progress">
             <div class="sf-top-progress-fill" id="sfProgressFill"></div>
           </div>
-
-<div class="sf-texts">
-  <div class="sf-slide active" id="sfSlide0">
-    <span class="sf-eyebrow">The Material</span>
-    <h2 class="sf-title">Quality leather.<br>Built for everyday use.</h2>
-    <p class="sf-desc">We select durable leather materials chosen for strength, comfort, and long-term wear. Designed to handle daily walks while developing character over time.</p>
-  </div>
-
-  <div class="sf-slide" id="sfSlide1">
-    <span class="sf-eyebrow">The Craft</span>
-    <h2 class="sf-title">Made with care,<br>in small batches.</h2>
-    <p class="sf-desc">Each piece is assembled with attention to detail using a hands-on process. We focus on consistency, durability, and a clean finish across every item.</p>
-  </div>
-
-  <div class="sf-slide" id="sfSlide2">
-    <span class="sf-eyebrow">The Hardware</span>
-    <h2 class="sf-title">Durable metal fittings.<br>Made for daily use.</h2>
-    <p class="sf-desc">We use sturdy metal components selected for strength and reliability, designed to hold up under regular wear and outdoor conditions.</p>
-  </div>
-</div>
-
+          <div class="sf-texts">
+            <div class="sf-slide active" id="sfSlide0">
+              <span class="sf-eyebrow">The Material</span>
+              <h2 class="sf-title">Quality leather.<br>Built for everyday use.</h2>
+              <p class="sf-desc">We select durable leather materials chosen for strength, comfort, and long-term wear. Designed to handle daily walks while developing character over time.</p>
+            </div>
+            <div class="sf-slide" id="sfSlide1">
+              <span class="sf-eyebrow">The Craft</span>
+              <h2 class="sf-title">Made with care,<br>in small batches.</h2>
+              <p class="sf-desc">Each piece is assembled with attention to detail using a hands-on process. We focus on consistency, durability, and a clean finish across every item.</p>
+            </div>
+            <div class="sf-slide" id="sfSlide2">
+              <span class="sf-eyebrow">The Hardware</span>
+              <h2 class="sf-title">Durable metal fittings.<br>Made for daily use.</h2>
+              <p class="sf-desc">We use sturdy metal components selected for strength and reliability, designed to hold up under regular wear and outdoor conditions.</p>
+            </div>
+          </div>
           <div class="sf-counter">
             <strong id="sfCountCurrent">01</strong> / 03
           </div>
-
-          <!-- Step dots vertical -->
           <div class="sf-step-dots">
             <div class="sf-dot active" id="sfDot0"></div>
             <div class="sf-dot" id="sfDot1"></div>
             <div class="sf-dot" id="sfDot2"></div>
           </div>
-
-          <!-- Scroll hint -->
           <div class="sf-scroll-hint" id="sfScrollHint">Scroll to explore</div>
         </div>
-
-        <!-- Right: image panel -->
         <div class="sf-image-panel">
-          <div class="sf-img active" id="sfImg0">
-            <img src="img/leather.png" alt="Premium leather" />
-          </div>
-          <div class="sf-img" id="sfImg1">
-            <img src="img/stich.png" alt="Handcrafted detail" />
-          </div>
-          <div class="sf-img" id="sfImg2">
-            <img src="img/brass.png" alt="Brass hardware" />
-          </div>
+          <div class="sf-img active" id="sfImg0"><img src="img/leather.png" alt="Premium leather" /></div>
+          <div class="sf-img" id="sfImg1"><img src="img/stich.png" alt="Handcrafted detail" /></div>
+          <div class="sf-img" id="sfImg2"><img src="img/brass.png" alt="Brass hardware" /></div>
         </div>
-
       </div>
     </div>
   </div>
 </div>
-
-
-<!-- STAT STRIP 
-<div class="stat-strip">
-  <div class="stat-grid">
-    <div class="stat-card" data-reveal data-delay="80">
-      <span class="stat-num" data-count="100">0</span>
-      <span class="stat-label">% Full-Grain Leather</span>
-    </div>
-
-    <div class="stat-card" data-reveal data-delay="160">
-      <span class="stat-num" data-count="12">0</span>
-      <span class="stat-label">Months Avg. Warranty</span>
-    </div>
-
-    <div class="stat-card" data-reveal data-delay="240">
-      <span class="stat-num" data-count="98">0</span>
-      <span class="stat-label">% 5-Star Reviews</span>
-    </div>
-  </div>
-</div>
--->
 
 <!-- BUNDLES -->
 <section class="bundles" id="bundles">
   <div class="section-wrap">
-
     <div class="section-header" data-reveal>
       <p class="eyebrow">Complete Sets</p>
       <h2>Shop Our Bundles</h2>
       <div class="gold-rule"></div>
-      <p class="section-sub">
-        Coordinated sets designed for everyday walks, gifting, and simple upgrades to your dog’s gear.
-      </p>
+      <p class="section-sub">Coordinated sets designed for everyday walks, gifting, and simple upgrades to your dog's gear.</p>
     </div>
 
     <div class="bundle-grid">
 
+      <!-- Bundle 1: From $35 → was $45.95 -->
       <div class="bundle-card" data-reveal data-delay="0" data-hover>
         <div class="bundle-img-wrap">
           <img src="img/Products/bundle-002/1.jpeg" alt="Starter Bundle" loading="lazy" />
         </div>
-
         <div class="bundle-body">
           <p class="bundle-label">Most Affordable</p>
           <h3 class="bundle-name">Barkley Woven Polo Collar & Leather Leash</h3>
-
-          <p class="bundle-desc">
-            A simple everyday set designed for comfort, reliability, and daily use.
-          </p>
-
+          <p class="bundle-desc">A simple everyday set designed for comfort, reliability, and daily use.</p>
           <ul class="bundle-includes">
             <li>Stylish leather collar</li>
             <li>Matching leather leash</li>
           </ul>
-
           <div class="bundle-footer">
-            <span class="bundle-price">From $35 <small>AUD</small></span>
-            <a href="product.html?id=bundle-002" class="btn-outline" data-hover>
-              <span>Take A Look</span>
-            </a>
+            <div class="bundle-price-wrap">
+              <span class="bundle-price-was">Was from $45.95</span>
+              <span class="bundle-price">From $35 <small>AUD</small></span>
+            </div>
+            <a href="product.html?id=bundle-002" class="btn-outline" data-hover><span>Take A Look</span></a>
           </div>
         </div>
       </div>
 
+      <!-- Bundle 2: $110 → was $142.95 -->
       <div class="bundle-card bundle-card--featured" data-reveal data-delay="120" data-hover>
         <div class="bundle-badge">Most Popular</div>
-
         <div class="bundle-img-wrap">
           <img src="img/Products/bundle-001/1.jpeg" alt="Heritage Set" loading="lazy" />
         </div>
-
         <div class="bundle-body">
           <p class="bundle-label">Signature Collection</p>
           <h3 class="bundle-name">Heritage Red Leather Set</h3>
-
-          <p class="bundle-desc">
-            A coordinated set built for everyday use with a refined, classic look.
-          </p>
-
+          <p class="bundle-desc">A coordinated set built for everyday use with a refined, classic look.</p>
           <ul class="bundle-includes">
             <li>Leather collar</li>
             <li>Leather harness</li>
             <li>Leather leash</li>
           </ul>
-
           <div class="bundle-footer">
-            <span class="bundle-price">$110 <small>AUD</small></span>
-            <a href="product.html?id=bundle-001" class="btn-gold" data-hover>
-              <span>Shop Premium Set</span>
-            </a>
+            <div class="bundle-price-wrap">
+              <span class="bundle-price-was">Was $142.95</span>
+              <span class="bundle-price">$110 <small>AUD</small></span>
+            </div>
+            <a href="product.html?id=bundle-001" class="btn-gold" data-hover><span>Shop Premium Set</span></a>
           </div>
         </div>
       </div>
 
+      <!-- Bundle 3: From $38 → was $49.95 -->
       <div class="bundle-card" data-reveal data-delay="240" data-hover>
         <div class="bundle-img-wrap">
           <img src="img/Products/bundle-005/1.jpeg" alt="Gift Bundle" loading="lazy" />
         </div>
-
         <div class="bundle-body">
           <p class="bundle-label">Gift Set</p>
           <h3 class="bundle-name">Brown Collar & Leash Set</h3>
-
-          <p class="bundle-desc">
-            A matching set designed for everyday walks or as a simple gift option.
-          </p>
-
+          <p class="bundle-desc">A matching set designed for everyday walks or as a simple gift option.</p>
           <ul class="bundle-includes">
             <li>Leather collar</li>
             <li>Matching leash</li>
           </ul>
-
           <div class="bundle-footer">
-            <span class="bundle-price">From $38 <small>AUD</small></span>
-            <a href="product.html?id=bundle-005" class="btn-outline" data-hover>
-              <span>Shop Gift Set</span>
-            </a>
+            <div class="bundle-price-wrap">
+              <span class="bundle-price-was">Was from $49.95</span>
+              <span class="bundle-price">From $38 <small>AUD</small></span>
+            </div>
+            <a href="product.html?id=bundle-005" class="btn-outline" data-hover><span>Shop Gift Set</span></a>
           </div>
         </div>
       </div>
@@ -884,34 +577,21 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
   </div>
 </section>
 
-<!-- STORY SPLIT -->
 <section class="story-split">
   <div class="story-image" data-reveal="left">
     <img src="img/final.png" alt="Barkley Pet craftsmanship" loading="lazy" />
     <div class="story-frame"></div>
   </div>
-<div class="story-text" data-reveal="right">
-  <p class="eyebrow">Our Story</p>
-  <h2>Where Every Walk<br>Feels First-Class</h2>
-  <div class="gold-rule gold-rule--left" style="margin:22px 0;"></div>
-
-  <p>
-    Barkley Pet started with a simple idea — everyday dog gear could feel more considered, more refined, and more enjoyable to use.
-    We focus on creating accessories that balance function, comfort, and design.
-  </p>
-
-  <p>
-    Each piece is made with durable materials and thoughtful construction, chosen to suit daily walks and long-term use.
-    Over time, they’re designed to develop character through regular use.
-  </p>
-
-  <a href="about.html" class="btn-outline" style="margin-top:28px; display:inline-block;" data-hover>
-    <span>Read Our Story</span>
-  </a>
-</div>
+  <div class="story-text" data-reveal="right">
+    <p class="eyebrow">Our Story</p>
+    <h2>Where Every Walk<br>Feels First-Class</h2>
+    <div class="gold-rule gold-rule--left" style="margin:22px 0;"></div>
+    <p>Barkley Pet started with a simple idea — everyday dog gear could feel more considered, more refined, and more enjoyable to use. We focus on creating accessories that balance function, comfort, and design.</p>
+    <p>Each piece is made with durable materials and thoughtful construction, chosen to suit daily walks and long-term use. Over time, they're designed to develop character through regular use.</p>
+    <a href="about.html" class="btn-outline" style="margin-top:28px; display:inline-block;" data-hover><span>Read Our Story</span></a>
+  </div>
 </section>
 
-<!-- TESTIMONIALS -->
 <section class="testimonials">
   <div class="section-wrap">
     <div class="section-header" data-reveal>
@@ -920,46 +600,30 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
       <div class="gold-rule"></div>
     </div>
     <div class="testi-grid">
-  <div class="testi-card" data-reveal data-delay="0">
-    <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-    <p class="testi-quote">
-      “Really happy with the harness. It feels solid and comfortable for everyday walks.”
-    </p>
-    <div class="testi-author">
-      <strong>Sarah</strong><span>Dog owner, Melbourne</span>
+      <div class="testi-card" data-reveal data-delay="0">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">"Really happy with the harness. It feels solid and comfortable for everyday walks."</p>
+        <div class="testi-author"><strong>Sarah</strong><span>Dog owner, Melbourne</span></div>
+      </div>
+      <div class="testi-card" data-reveal data-delay="100">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">"The bundle feels well-made and has held up nicely with regular use."</p>
+        <div class="testi-author"><strong>James</strong><span>Dog owner, Melbourne</span></div>
+      </div>
+      <div class="testi-card" data-reveal data-delay="200">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">"Good quality gear overall, feels sturdy and easy to use day to day."</p>
+        <div class="testi-author"><strong>Emma</strong><span>Dog owner, Brisbane</span></div>
+      </div>
     </div>
-  </div>
-
-  <div class="testi-card" data-reveal data-delay="100">
-    <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-    <p class="testi-quote">
-      “The bundle feels well-made and has held up nicely with regular use.”
-    </p>
-    <div class="testi-author">
-      <strong>James</strong><span>Dog owner, Melbourne</span>
-    </div>
-  </div>
-
-  <div class="testi-card" data-reveal data-delay="200">
-    <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-    <p class="testi-quote">
-      “Good quality gear overall, feels sturdy and easy to use day to day.”
-    </p>
-    <div class="testi-author">
-      <strong>Emma</strong><span>Dog owner, Brisbane</span>
-    </div>
-  </div>
-</div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
 <section class="final-cta">
   <div class="final-cta-inner" data-reveal>
     <p class="eyebrow" style="color:var(--gold);">Ready to Elevate Your Walks?</p>
     <h2>Start With a Bundle<br><em>Built for Your Dog</em></h2>
     <div class="gold-rule"></div>
-
     <div class="cta-btns">
       <a href="#bundles" class="btn-gold" data-hover><span>View Bundles</span></a>
       <a href="products.html" class="btn-ghost" data-hover><span>Shop Individual Items</span></a>
@@ -967,40 +631,30 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">
       <img src="img/BarkleyLogo3.png" alt="Barkley Pet" class="footer-logo" />
       <p>Premium leather dog accessories handcrafted for dogs and owners who value quality and craft.</p>
     </div>
-    <div class="footer-col">
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="products.html">All Products</a></li>
-        <li><a href="#bundles">Bundles</a></li>
-        <li><a href="products.html">Collars</a></li>
-        <li><a href="products.html">Harnesses</a></li>
-        <li><a href="products.html">Leashes</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="about.html">Our Story</a></li>
-        <li><a href="about.html">Materials</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Support</h4>
-      <ul>
-        <li><a href="contact.html">Shipping Info</a></li>
-        <li><a href="contact.html">Returns</a></li>
-        <li><a href="terms.html">Terms</a></li>
-        <li><a href="privacy.html">Privacy</a></li>
-      </ul>
-    </div>
+    <div class="footer-col"><h4>Shop</h4><ul>
+      <li><a href="products.html">All Products</a></li>
+      <li><a href="#bundles">Bundles</a></li>
+      <li><a href="products.html">Collars</a></li>
+      <li><a href="products.html">Harnesses</a></li>
+      <li><a href="products.html">Leashes</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a href="about.html">Our Story</a></li>
+      <li><a href="about.html">Materials</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Support</h4><ul>
+      <li><a href="contact.html">Shipping Info</a></li>
+      <li><a href="contact.html">Returns</a></li>
+      <li><a href="terms.html">Terms</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul></div>
   </div>
   <div class="footer-bottom">
     <p>&copy; 2024 Barkley Pet Pty Ltd &middot; Melbourne, Australia &middot; ABN 31 687 348 198</p>
@@ -1009,11 +663,9 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
 </footer>
 
 <script>
-/* ══ Navbar ══ */
 const navbar=document.getElementById('navbar');
 window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>60),{passive:true});
 
-/* ══ Mobile drawer ══ */
 const hbg=document.getElementById('hamburger'),drw=document.getElementById('drawer'),
   ovl=document.getElementById('drawerOverlay'),cls=document.getElementById('drawerClose');
 const openD=()=>{drw.classList.add('open');ovl.classList.add('open');hbg.classList.add('open');document.body.style.overflow='hidden';};
@@ -1022,7 +674,6 @@ hbg.addEventListener('click',openD);
 cls.addEventListener('click',closeD);
 ovl.addEventListener('click',closeD);
 
-/* ══ Scroll reveal ══ */
 const revObs=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -1033,11 +684,9 @@ const revObs=new IntersectionObserver((entries)=>{
 },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('[data-reveal]').forEach(el=>revObs.observe(el));
 
-/* ══ Gold rule widen ══ */
 const rObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('wide');rObs.unobserve(e.target);}});},{threshold:.5});
 document.querySelectorAll('.gold-rule').forEach(r=>rObs.observe(r));
 
-/* ══ Smooth anchor ══ */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
     const t=document.querySelector(a.getAttribute('href'));
@@ -1045,22 +694,16 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 
-/* ══ PARALLAX ══
-   Elements with data-parallax shift vertically at their data-speed rate
-   relative to the page scroll. Hero elements move upward as you scroll down.
-*/
 const parallaxEls = document.querySelectorAll('[data-parallax]');
 const heroImg = document.getElementById('heroImg');
 const heroSection = document.getElementById('heroSection');
 
 function updateParallax() {
   const scrollY = window.scrollY;
-  // Hero text parallax
   parallaxEls.forEach(el => {
     const speed = parseFloat(el.dataset.speed || 0.2);
     el.style.transform = `translateY(${scrollY * speed * -1}px)`;
   });
-  // Hero image counter-parallax (moves slightly slower = depth effect)
   if (heroImg && heroSection) {
     const heroH = heroSection.offsetHeight;
     if (scrollY < heroH * 1.2) {
@@ -1069,7 +712,6 @@ function updateParallax() {
   }
 }
 
-/* ══ SCROLL-JACKED FEATURE ══ */
 const feature = document.getElementById('scrollFeature');
 const progressFill = document.getElementById('sfProgressFill');
 const scrollHint = document.getElementById('sfScrollHint');
@@ -1077,7 +719,6 @@ const sideIndicator = document.getElementById('sfSideIndicator');
 const totalSlides = 3;
 let currentSlide = 0;
 let scrollHintHidden = false;
-
 const slideLabels = ['01','02','03'];
 
 function setSlide(idx) {
@@ -1092,7 +733,6 @@ function setSlide(idx) {
     currentSlide = idx;
     document.getElementById('sfSlide'+currentSlide).classList.add('active');
     document.getElementById('sfImg'+currentSlide).classList.add('active');
-    // Mark all before as done, active as active
     for (let i=0;i<totalSlides;i++) {
       const d=document.getElementById('sfDot'+i);
       const p=document.getElementById('sfPip'+i);
@@ -1101,19 +741,14 @@ function setSlide(idx) {
       if (i<currentSlide){d.classList.add('done');p.classList.add('done');}
       if (i===currentSlide){d.classList.add('active');p.classList.add('active');}
     }
-    // Update counter
     const counter = document.getElementById('sfCountCurrent');
     if (counter) counter.textContent = slideLabels[currentSlide];
   }
 }
 
 function onScroll() {
-  // Parallax
   updateParallax();
-
   const scrollY = window.scrollY;
-
-  // Feature section logic
   if (!feature) return;
   const rect = feature.getBoundingClientRect();
   const featureTop = rect.top + scrollY;
@@ -1121,51 +756,18 @@ function onScroll() {
   const scrolled = scrollY - featureTop;
   const total = featureH - window.innerHeight;
   const pct = Math.max(0, Math.min(1, scrolled / total));
-
-  // Progress bar inside card
   if (progressFill) progressFill.style.width = (pct * 100) + '%';
-
-  // Slide index
   const idx = Math.min(totalSlides - 1, Math.floor(pct * totalSlides));
   setSlide(idx);
-
-  // Hide scroll hint after a little scroll
   if (!scrollHintHidden && pct > 0.05) {
     scrollHintHidden = true;
     if (scrollHint) scrollHint.classList.add('hidden');
   }
-
-  // Show/hide side indicator
   const inSection = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
-  if (sideIndicator) {
-    sideIndicator.classList.toggle('visible', inSection);
-  }
+  if (sideIndicator) sideIndicator.classList.toggle('visible', inSection);
 }
 
 window.addEventListener('scroll', onScroll, {passive:true});
-
-/* ══ STAT COUNTER ══ */
-const counters = document.querySelectorAll('[data-count]');
-const countObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    const target = parseInt(el.dataset.count);
-    const dur = 1400;
-    const start = performance.now();
-    const tick = now => {
-      const t = Math.min(1, (now - start) / dur);
-      const eased = 1 - Math.pow(1 - t, 3);
-      el.textContent = Math.floor(eased * target).toLocaleString() + (t >= 1 ? (target >= 2000 ? '+' : '%') : '');
-      if (t < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-    countObs.unobserve(el);
-  });
-}, { threshold: 0.5 });
-counters.forEach(c => countObs.observe(c));
-
-// Initial parallax calc
 updateParallax();
 </script>
 </body>

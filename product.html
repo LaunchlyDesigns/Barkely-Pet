@@ -33,6 +33,7 @@
       --max-w: 1200px;
       --nav-h: 78px;
       --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --sale-red: #c0392b;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -123,7 +124,9 @@
     .product-info .eyebrow { font-family: var(--sans); font-size: .62rem; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 12px; display: block; }
     .product-info h1 { font-family: var(--serif-body); font-weight: 500; font-size: clamp(1.7rem, 2.8vw, 2.4rem); color: var(--brown-dark); line-height: 1.2; margin-bottom: 20px; }
     .product-price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(107,61,40,.12); }
-    .product-price { font-family: var(--serif-body); font-size: 2rem; color: var(--brown-dark); line-height: 1; }
+    .product-price-block { display: flex; flex-direction: column; gap: 4px; }
+    .product-price-was { font-family: var(--sans); font-size: .8rem; color: #b0a090; text-decoration: line-through; letter-spacing: .03em; }
+    .product-price { font-family: var(--serif-body); font-size: 2rem; color: var(--sale-red); line-height: 1; }
     .product-price small { font-family: var(--sans); font-size: .7rem; color: #a08070; font-weight: 300; }
     .product-price.tba { font-family: var(--serif-display); font-style: italic; font-size: 1rem; color: #b0a090; }
     .product-desc { font-size: .88rem; color: #6b5040; line-height: 1.8; margin-bottom: 24px; }
@@ -189,7 +192,7 @@
     .related-card__cat { font-family: var(--sans); font-size: .56rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 5px; display: block; }
     .related-card__name { font-family: var(--serif-body); font-size: .95rem; color: var(--brown-dark); margin-bottom: 10px; line-height: 1.25; }
     .related-card__footer { display: flex; align-items: center; justify-content: space-between; }
-    .related-card__price { font-family: var(--serif-body); font-size: 1.1rem; color: var(--brown-dark); }
+    .related-card__price { font-family: var(--serif-body); font-size: 1.1rem; color: var(--sale-red); }
     .related-card__link { font-family: var(--sans); font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brown); border-bottom: 1px solid var(--gold-dim); padding-bottom: 2px; transition: color .2s; }
     .related-card:hover .related-card__link { color: var(--gold-dark); }
 
@@ -281,7 +284,7 @@
     </div>
   </div>
 
-  <nav class="navbar scrolled" id="navbar">
+  <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" data-hover>
         <img src="img/BarkleyLogo3.png" alt="Barkley Pet" />
@@ -386,6 +389,18 @@
     const PHOTO_COUNTS = window.PHOTO_COUNTS || {};
     const RELATED_MAP  = window.RELATED      || {};
     const PLACEHOLDER  = 'img/Products/harness-001/1.jpeg';
+
+    /* ════════════════════════════════════════════
+        SALE CONFIG — 30% off sitewide
+        Original price = sale price × 1.30, rounded to nearest .95
+        (Matches products.html logic exactly)
+     ════════════════════════════════════════════ */
+    const SALE_MULTIPLIER = 1.30; // original was 30% more
+
+    function calcOriginalPrice(salePrice) {
+      const raw = salePrice * SALE_MULTIPLIER;
+      return (Math.ceil(raw) - 0.05);
+    }
 
     /* ════════════════════════════════════════════
         SIZE GUIDE CONTENT REFERENCE
@@ -650,14 +665,18 @@
         }
       }
 
-      // Update displayed price
+      // Update displayed price (with sale "was" price)
       const priceData = PRICES[productId];
       if (priceData && typeof priceData === 'object') {
         const sizePrice = priceData[size];
         const priceEl   = document.getElementById('displayedPrice');
+        const wasEl     = document.getElementById('displayedPriceWas');
         if (priceEl && sizePrice) {
           priceEl.innerHTML = `$${sizePrice.toFixed(2)}<small> AUD</small>`;
           priceEl.className  = 'product-price';
+        }
+        if (wasEl && sizePrice) {
+          wasEl.textContent = `Was $${calcOriginalPrice(sizePrice).toFixed(2)}`;
         }
       }
     }
@@ -699,10 +718,18 @@
         initPriceId = priceMap || '';
       }
 
-      /* Price HTML */
-      const priceHtml = price
-        ? `<span class="product-price" id="displayedPrice">$${price.toFixed(2)}<small> AUD</small></span>`
-        : `<span class="product-price tba">Price coming soon</span>`;
+      /* Price HTML — now includes "Was $X" struck-through sale price */
+      let priceHtml;
+      if (price) {
+        const origPrice = calcOriginalPrice(price);
+        priceHtml = `
+          <div class="product-price-block">
+            <span class="product-price-was" id="displayedPriceWas">Was $${origPrice.toFixed(2)}</span>
+            <span class="product-price" id="displayedPrice">$${price.toFixed(2)}<small> AUD</small></span>
+          </div>`;
+      } else {
+        priceHtml = `<span class="product-price tba">Price coming soon</span>`;
+      }
 
       /* Buy button HTML */
       let buyHtml;

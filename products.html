@@ -32,6 +32,8 @@
   --max-w:         1200px;
   --nav-h:         78px;
   --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
+  --sale-red:      #c0392b;
+  --sale-red-bg:   #fdf0ee;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -366,9 +368,24 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
   border-top: 1px solid var(--cream-dark); padding-top: 14px;
   gap: 10px;
 }
+
+/* ── Price block ── */
+.product-card__price-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1;
+}
+.product-card__price-was {
+  font-family: var(--sans);
+  font-size: .7rem;
+  color: #b0a090;
+  text-decoration: line-through;
+  letter-spacing: .03em;
+}
 .product-card__price {
   font-family: var(--serif-body); font-size: 1.3rem;
-  color: var(--brown-dark); line-height: 1;
+  color: var(--sale-red); line-height: 1;
 }
 .product-card__price small {
   font-family: var(--sans); font-size: .65rem;
@@ -378,6 +395,7 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
   font-size: .7rem; color: #b0a090;
   font-family: var(--serif-display); font-style: italic;
 }
+
 .product-card__buy {
   display: inline-block;
   font-family: var(--sans); font-size: .62rem; font-weight: 700;
@@ -477,7 +495,7 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
 </head>
 <body>
 
-  <nav class="navbar scrolled" id="navbar">
+  <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <img src="img/BarkleyLogo3.png" alt="Barkley Pet" />
@@ -635,6 +653,18 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
   const PLACEHOLDER = 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=70';
 
   /* ════════════════════════════════════════════
+      SALE CONFIG — 30% off sitewide
+      Original price = sale price × 1.30, rounded to nearest .95
+  ════════════════════════════════════════════ */
+  const SALE_MULTIPLIER = 1.30; // original was 30% more
+
+  function calcOriginalPrice(salePrice) {
+    const raw = salePrice * SALE_MULTIPLIER;
+    // Round to nearest .95 for a natural-looking RRP
+    return (Math.ceil(raw) - 0.05);
+  }
+
+  /* ════════════════════════════════════════════
       CATEGORIES CONFIG — controls section order + labels
   ════════════════════════════════════════════ */
   const CATEGORIES = [
@@ -677,16 +707,24 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
     const cat       = getCat(id);
     const img       = p.image_url || `img/Products/${id}/1.jpeg`;
     const priceData = PRICES[id];
-    const price     = priceData
+    const salePrice = priceData
       ? (typeof priceData === 'object' ? Math.min(...Object.values(priceData)) : priceData)
       : (p.price ? parseFloat(p.price) : null);
     const priceFrom = priceData && typeof priceData === 'object';
 
     const buyBtn = `<a href="product.html?id=${id}" class="product-card__buy"><span>View Product &rarr;</span></a>`;
 
-    const priceEl = price
-      ? `<span class="product-card__price">${priceFrom ? 'From ' : ''}$${price.toFixed(2)}<small>AUD</small></span>`
-      : `<span class="product-card__price tba">Price coming soon</span>`;
+    let priceEl;
+    if (salePrice) {
+      const origPrice = calcOriginalPrice(salePrice);
+      priceEl = `
+        <div class="product-card__price-wrap">
+          <span class="product-card__price-was">Was $${origPrice.toFixed(2)}</span>
+          <span class="product-card__price">${priceFrom ? 'From ' : ''}$${salePrice.toFixed(2)}<small>AUD</small></span>
+        </div>`;
+    } else {
+      priceEl = `<span class="product-card__price tba">Price coming soon</span>`;
+    }
 
     return `
       <div class="product-card" data-reveal>
@@ -694,7 +732,6 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
           <img src="${img}" alt="${p.name}" loading="lazy"
                onerror="this.src='${PLACEHOLDER}'" />
           <span class="product-card__cat">${cat}</span>
-          <span class="product-card__new">New</span>
         </div>
         <div class="product-card__body">
           <a href="product.html?id=${id}"><h3 class="product-card__name">${p.name}</h3></a>
