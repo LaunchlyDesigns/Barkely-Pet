@@ -448,17 +448,33 @@
     }
   }
 
-  /* ── Init on DOM ready ── */
+/* ── Init on DOM ready ── */
   function init() {
     injectStyles();
     injectMarkup();
+    
+    // Attempt to inject immediately
     injectTriggerIntoNavbar();
     renderCartUI();
+
+    // Safety net: If the navbar wasn't ready, set an observer to wait for it
+    if (!document.getElementById('cartTriggerBtn')) {
+      const observer = new MutationObserver((mutations, obs) => {
+        const navInner = document.querySelector('.nav-inner');
+        if (navInner) {
+          injectTriggerIntoNavbar();
+          obs.disconnect(); // Stop watching once we find it
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
   }
 
+  // Ensure init runs regardless of when the script loads relative to the DOM
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
+    // If we missed DOMContentLoaded, run immediately
     init();
   }
 })();
