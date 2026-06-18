@@ -137,20 +137,20 @@ window.PHOTO_COUNTS = {
   'leash-005': 2,
 
   'collar-001': 1,
-  'collar-002': 2,
+  'collar-002': 5,
   'collar-003': 7,
 
-  'collar-004': 2,
-  'collar-005': 2,
-  'collar-006': 6,
-  'collar-007': 3,
-  'collar-008': 4,
+  'collar-004': 12,
+  'collar-005': 7,
+  'collar-006': 8,
+  'collar-007': 4,
+  'collar-008': 5,
 
-  'bundle-001': 6,
-  'bundle-002': 4,
-  'bundle-003': 4,
-  'bundle-004': 4,
-  'bundle-005': 4,
+  'bundle-001': 10,
+  'bundle-002': 6,
+  'bundle-003': 15,
+  'bundle-004': 9,
+  'bundle-005': 13,
 };
 
 window.RELATED = {
