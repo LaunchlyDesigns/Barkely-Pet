@@ -410,9 +410,12 @@
     const items = readCart();
     if (items.length === 0) return;
 
-    const backendUrl = window.CART_BACKEND_URL || (window.CONFIG && window.CONFIG.BACKEND_URL);
+    // Hardcode your specific Apps Script URL as the ultimate fallback so it works on every page
+    const fallbackUrl = 'https://script.google.com/macros/s/AKfycbzGoLOLPBhfDMArjE4vfIidbmVWpI1Tzp6nUTl6Y5LIFobn3ai0PqIo4GGyeJ_suwqYbw/exec';
+    const backendUrl = window.CART_BACKEND_URL || (window.CONFIG && window.CONFIG.BACKEND_URL) || fallbackUrl;
+
     if (!backendUrl) {
-      console.error('No backend URL configured for checkout. Set window.CART_BACKEND_URL.');
+      console.error('No backend URL configured for checkout.');
       alert('Checkout is not configured on this page yet.');
       return;
     }
@@ -435,7 +438,6 @@
       });
       const data = JSON.parse(await response.text());
       if (data.url) {
-        Cart.clear();
         window.location.href = data.url;
       } else {
         throw new Error(data.error || 'Could not create checkout session');

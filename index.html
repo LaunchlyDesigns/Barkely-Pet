@@ -105,7 +105,19 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
 /* HERO */
 .hero { height: auto; min-height: 94vh; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; position: relative; background: var(--brown-deep); }
 .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 140px 72px 100px; position: relative; z-index: 2; }
-.hero-left::before { content:''; position:absolute; inset:0; background-color: var(--brown-mid); background-image: linear-gradient(180deg,rgba(255,210,100,.09) 0%,transparent 35%), linear-gradient(180deg,transparent 60%,rgba(0,0,0,.18) 100%), repeating-linear-gradient(38deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px,transparent 4px,transparent 8px), repeating-linear-gradient(-38deg,transparent,transparent 3px,rgba(0,0,0,.055) 3px,rgba(0,0,0,.055) 4px,transparent 4px,transparent 8px), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.22 0 0 0 0 0.12 0 0 0 0 0.06 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 100% 100%,100% 100%,8px 8px,8px 8px,300px 300px; pointer-events:none; }
+.hero-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--brown-mid);
+  background-image:
+    linear-gradient(180deg, rgba(255,210,100,.09) 0%, transparent 35%),
+    linear-gradient(180deg, transparent 60%, rgba(0,0,0,.18) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cellipse cx='0' cy='8' rx='6' ry='5'/%3E%3Ccircle cx='-7' cy='-3' r='2.1'/%3E%3Ccircle cx='-2.6' cy='-6.5' r='2.1'/%3E%3Ccircle cx='2.6' cy='-6.5' r='2.1'/%3E%3Ccircle cx='7' cy='-3' r='2.1'/%3E%3C/g%3E%3C/defs%3E%3Cg fill='rgba(247,217,84,0.12)'%3E%3Cuse href='%23p' transform='translate(20,30) rotate(15) scale(0.9)'/%3E%3Cuse href='%23p' transform='translate(70,15) rotate(-25) scale(1.1)'/%3E%3Cuse href='%23p' transform='translate(150,40) rotate(40) scale(0.8)'/%3E%3Cuse href='%23p' transform='translate(40,110) rotate(-10) scale(1)'/%3E%3Cuse href='%23p' transform='translate(120,95) rotate(60) scale(0.95)'/%3E%3Cuse href='%23p' transform='translate(180,140) rotate(-45) scale(0.85)'/%3E%3Cuse href='%23p' transform='translate(10,170) rotate(20) scale(1.05)'/%3E%3Cuse href='%23p' transform='translate(90,180) rotate(-60) scale(0.9)'/%3E%3Cuse href='%23p' transform='translate(160,200) rotate(10) scale(0.8)'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 220px 220px;
+  background-repeat: no-repeat, no-repeat, repeat;
+  pointer-events: none;
+}
 .hero-left > * { position:relative; z-index:1; }
 .hero-right { position:relative; overflow:hidden; }
 .hero-right img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; filter:brightness(.88) sepia(8%); transform:scale(1.05); animation:heroImg 1.6s var(--ease-out) .1s forwards; will-change: transform; }
@@ -309,7 +321,17 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
   .hero { grid-template-columns:1fr; min-height:auto; }
   .hero-right { height:55vw; min-height:280px; order:-1; }
   .hero-right::before { display:none; }
-  .hero-left { padding:56px 24px 80px; }
+.hero-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--brown-deep);
+  background-image: 
+    radial-gradient(circle at 15% 0%, rgba(247, 217, 84, 0.12) 0%, transparent 60%),
+    linear-gradient(110deg, var(--brown-mid) 0%, var(--brown-deep) 65%);
+  box-shadow: inset -20px 0 50px rgba(0,0,0,0.4);
+  pointer-events: none;
+}
   .hero-scroll { display:none; }
   .trust-grid { grid-template-columns:repeat(2,1fr); }
   .trust-card { border-bottom:1px solid rgba(247,217,84,.1); padding:32px 24px; }
@@ -407,17 +429,17 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
 
 <div class="marquee-bar">
   <div class="marquee-track" id="marqueeTrack">
-    <div class="marquee-item"><span>Storewide Sale</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>30% Off Everything</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Flash Sale</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>30% Off Storewide</span><div class="marquee-dot"></div></div>
     <div class="marquee-item"><span>Limited Time Only</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Storewide Sale</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>30% Off Everything</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Flash Sale</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>30% Off Storewide</span><div class="marquee-dot"></div></div>
     <div class="marquee-item"><span>Limited Time Only</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Storewide Sale</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>30% Off Everything</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Flash Sale</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>30% Off Storewide</span><div class="marquee-dot"></div></div>
     <div class="marquee-item"><span>Limited Time Only</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>Storewide Sale</span><div class="marquee-dot"></div></div>
-    <div class="marquee-item"><span>30% Off Everything</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>Flash Sale</span><div class="marquee-dot"></div></div>
+    <div class="marquee-item"><span>30% Off Storewide</span><div class="marquee-dot"></div></div>
     <div class="marquee-item"><span>Limited Time Only</span><div class="marquee-dot"></div></div>
   </div>
 </div>
@@ -436,8 +458,8 @@ p { font-family: var(--sans); font-weight: 300; line-height: 1.75; font-size: 0.
     </div>
     <div class="trust-card" data-reveal data-delay="160">
       <div class="trust-card__icon"></div>
-      <h3 class="trust-card__title">Thoughtful Packaging</h3>
-      <p class="trust-card__desc">Each order is packed with care for a clean and considered unboxing experience.</p>
+      <h3 class="trust-card__title">Handmade with Care</h3>
+      <p class="trust-card__desc">Each item is carefully handcrafted with attention to detail, ensuring quality in every piece.</p>
     </div>
     <div class="trust-card" data-reveal data-delay="240">
       <div class="trust-card__icon"></div>

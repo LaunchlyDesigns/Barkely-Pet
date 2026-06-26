@@ -22,7 +22,8 @@ window.FALLBACK = [
   { id: 'collar-008', name: 'Barkley Woven Polo Collar (Pink)', sizes: 'S / M / L / XL' },
 
   { id: 'bundle-001', name: 'Heritage Red Leather Set', sizes: 'M / L / XL' },
-  { id: 'bundle-002', name: 'Barkley Woven Polo Collar & Leather Leash', sizes: 'S / M / L / XL' },
+  { id: 'bundle-002', name: 'Barkley Woven Polo Collar & Leather Leash (Blue)', sizes: 'S / M / L / XL' },
+  { id: 'bundle-006', name: 'Barkley Woven Polo Collar & Leather Leash (Pink)', sizes: 'S / M / L / XL' },
   { id: 'bundle-003', name: 'Nero Croc Stud Collar & Leash Set', sizes: 'S / M / L / XL' },
   { id: 'bundle-004', name: 'Verde Croc Stud Collar & Leash Set', sizes: 'S / M / L / XL' },
   { id: 'bundle-005', name: 'Dom Button Brown With Leash & Leather Collar', sizes: 'S / M / L / XL' },
@@ -60,6 +61,7 @@ window.PRICES = {
   'bundle-003': { S: 38, M: 40, L: 41, XL: 41.99 },
   'bundle-004': { S: 40, M: 40.99, L: 42, XL: 44 },
   'bundle-005': { S: 38, M: 40, L: 42, XL: 43 },
+  'bundle-006': { S: 35, M: 35, L: 35, XL: 35 },
 };
 
 window.PRICE_IDS = {
@@ -91,6 +93,7 @@ window.PRICE_IDS = {
   'bundle-003': { S: 'price_1TXBdvK98HEjIejTZnjyOOOd', M: 'price_1TXBeGK98HEjIejTxr9laz9e', L: 'price_1TXBecK98HEjIejTp8EyF97D', XL: 'price_1TXBfdK98HEjIejTB2uxFidr' },
   'bundle-004': { S: 'price_1TXBgDK98HEjIejTOO3Sb65Z', M: 'price_1TXBeGK98HEjIejTxr9laz9e', L: 'price_1TXBhxK98HEjIejTKS4HJzuv', XL: 'price_1TXBj5K98HEjIejTpfL1cApv' },
   'bundle-005': { S: 'price_1TXBndK98HEjIejTV5hhoxII', M: 'price_1TXBo1K98HEjIejT76MnOeGe', L: 'price_1TXBoQK98HEjIejTDXzJUVJL', XL: 'price_1TXBotK98HEjIejTUhonxYrR' },
+  'bundle-006': { S: 'price_1TmXxFK98HEjIejT76bC1ciq', M: 'price_1TmXxzK98HEjIejTlPTLsTWP', L: 'price_1TmXyHK98HEjIejTQPzycJRy', XL: 'price_1TmXyiK98HEjIejTQCWEoH6B' },
 };
 
 window.DESCRIPTIONS = {
@@ -121,13 +124,14 @@ window.DESCRIPTIONS = {
   'bundle-003': 'A black leather-style leash with metal studs, paired with a matching collar.',
   'bundle-004': 'A green leather-style leash with metal studs, paired with a matching collar.',
   'bundle-005': 'A brown leather-style leash with metal stud detailing, designed as a coordinated set with a matching collar.',
+  'bundle-006': 'A classic-style leash made made leather with stylish pink and red woven fabric accents. Comfortable grip with a secure metal clip and a matching collar.',
 };
 
 window.PHOTO_COUNTS = {
-  'harness-001': 7,
+  'harness-001': 9,
   'harness-002': 7,
-  'harness-003': 1,
-  'harness-004': 1,
+  'harness-003': 4,
+  'harness-004': 3,
   'harness-005': 7,
 
   'leash-001': 2,
@@ -136,27 +140,31 @@ window.PHOTO_COUNTS = {
   'leash-004': 3,
   'leash-005': 2,
 
-  'collar-001': 1,
-  'collar-002': 5,
+  'collar-001': 6,
+  'collar-002': 7,
   'collar-003': 7,
 
   'collar-004': 12,
-  'collar-005': 7,
+  'collar-005': 10,
   'collar-006': 8,
   'collar-007': 4,
-  'collar-008': 5,
+  'collar-008': 8,
 
   'bundle-001': 10,
-  'bundle-002': 6,
-  'bundle-003': 15,
-  'bundle-004': 9,
+  'bundle-002': 9,
+  'bundle-003': 19,
+  'bundle-004': 14,
   'bundle-005': 13,
+  'bundle-006': 6,
 };
 
 window.RELATED = {
   // INDIVIDUAL ITEMS MAPPED TO THEIR BUNDLES
   'collar-007': ['bundle-002'],
   'leash-004': ['bundle-002'],
+
+  'collar-008': ['bundle-006'],
+  'leash-005': ['bundle-006'],
 
   'collar-004': ['bundle-003'],
   'leash-001': ['bundle-003'],
@@ -172,4 +180,5 @@ window.RELATED = {
   'bundle-003': ['collar-004', 'leash-001'],
   'bundle-004': ['collar-005', 'leash-002'],
   'bundle-005': ['collar-006', 'leash-003'],
+  'bundle-006': ['collar-008', 'leash-005'],
 };

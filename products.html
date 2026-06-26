@@ -1205,7 +1205,7 @@
       <div class="marquee-item"><span>Premium Materials</span>
         <div class="marquee-dot"></div>
       </div>
-      <div class="marquee-item"><span>Carefully Crafted Design</span>
+      <div class="marquee-item"><span>Handcrafted With Care</span>
         <div class="marquee-dot"></div>
       </div>
       <div class="marquee-item"><span>Thoughtful Packaging</span>
@@ -1224,7 +1224,7 @@
       <div class="marquee-item"><span>Premium Materials</span>
         <div class="marquee-dot"></div>
       </div>
-      <div class="marquee-item"><span>Carefully Crafted Design</span>
+      <div class="marquee-item"><span>Handcrafted With Care</span>
         <div class="marquee-dot"></div>
       </div>
       <div class="marquee-item"><span>Thoughtful Packaging</span>
@@ -1394,16 +1394,35 @@
       return 'Product';
     }
 
-    function sortList(list) {
-      const sorted = [...list];
-      switch (activeSort) {
-        case 'az': return sorted.sort((a, b) => a.name.localeCompare(b.name));
-        case 'za': return sorted.sort((a, b) => b.name.localeCompare(a.name));
-        case 'price-asc': return sorted.sort((a, b) => (parseFloat(a.price) || 999) - (parseFloat(b.price) || 999));
-        case 'price-desc': return sorted.sort((a, b) => (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0));
-        default: return sorted;
-      }
-    }
+    function getEffectivePrice(p) {
+  const id = p.id || '';
+  const priceData = PRICES[id];
+  if (priceData) {
+    return typeof priceData === 'object' ? Math.min(...Object.values(priceData)) : priceData;
+  }
+  return p.price ? parseFloat(p.price) : null;
+}
+
+function sortList(list) {
+  const sorted = [...list];
+  switch (activeSort) {
+    case 'az': return sorted.sort((a, b) => a.name.localeCompare(b.name));
+    case 'za': return sorted.sort((a, b) => b.name.localeCompare(a.name));
+    case 'price-asc': return sorted.sort((a, b) => {
+      const pa = getEffectivePrice(a), pb = getEffectivePrice(b);
+      if (pa == null) return 1;
+      if (pb == null) return -1;
+      return pa - pb;
+    });
+    case 'price-desc': return sorted.sort((a, b) => {
+      const pa = getEffectivePrice(a), pb = getEffectivePrice(b);
+      if (pa == null) return 1;
+      if (pb == null) return -1;
+      return pb - pa;
+    });
+    default: return sorted;
+  }
+}
 
     /* ── Card builder ── */
     function buildCard(p) {
